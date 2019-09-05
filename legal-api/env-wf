@@ -11,9 +11,12 @@ DATABASE_PASSWORD=
 DATABASE_NAME=legal_test
 DATABASE_HOST=legal_db
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> bfd7d91... Implemented Caddy, Docker files for ui, api, db, modified env variables
 =======
 >>>>>>> 8b19e2c... add updated schema for legal_type column
+=======
+>>>>>>> 245815b... Implemented Caddy, Docker files for ui, api, db, modified env variables
 DATABASE_PORT=5432
 
 # Test Database
@@ -22,9 +25,12 @@ DATABASE_TEST_PASSWORD=
 DATABASE_TEST_NAME=legal_test
 DATABASE_TEST_HOST=legal_db
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> bfd7d91... Implemented Caddy, Docker files for ui, api, db, modified env variables
 =======
 >>>>>>> 8b19e2c... add updated schema for legal_type column
+=======
+>>>>>>> 245815b... Implemented Caddy, Docker files for ui, api, db, modified env variables
 DATABASE_TEST_PORT=5432
 
 # JWT setup

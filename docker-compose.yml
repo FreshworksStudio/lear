@@ -65,4 +65,8 @@ networks:
 
 ####################### Volumes Definition #######################
 volumes:
+<<<<<<< HEAD
   postgres-data:
+=======
+  postgres-data:
+>>>>>>> Implemented Caddy, Docker files for ui, api, db, modified env variables

@@ -12,7 +12,9 @@ local-project: setup-local-env build-local-project run-local-project
 
 ## Sets the configuration to a local-build
 setup-local-env:
-	@cp ./coops-ui/public/config/local-configuration.json ./coops-ui/public/config/configuration.json
+	@touch ./coops-ui/config/.env.local
+	@cp ./coops-ui/config/.env.template ./coops-ui/config/.env.local
+	@cp ./coops-ui/config/.env.local ./coops-ui/.env
 
 ## Builds the local project
 build-local-project:

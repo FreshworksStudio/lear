@@ -15,7 +15,7 @@
 from datetime import date, datetime
 from http import HTTPStatus
 from typing import Dict, List, Tuple
-
+from dateutil import parser
 import datedelta
 from flask import current_app
 from flask_babel import _
@@ -129,7 +129,7 @@ def validate_agm_year(*, business: Business, annual_report: Dict) -> Tuple[int, 
                                     'The business will be dissolved, unless an extension and an AGM are held.'),
                        'path': 'filing/annualReport/annualGeneralMeetingDate'}])
 
-    if agm_date and agm_date < date.fromisoformat(current_app.config.get('GO_LIVE_DATE')):
+    if agm_date and agm_date < parser.parse(current_app.config.get('GO_LIVE_DATE')).date():
         return Error(HTTPStatus.BAD_REQUEST,
                      [{'error': 'Annual General Meeting Date is before 2019-08-12, '
                                 'so it must be submitted as a paper-filing.',

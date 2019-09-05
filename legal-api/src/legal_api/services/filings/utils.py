@@ -14,7 +14,7 @@
 """Common utilities used by the services."""
 from datetime import date
 from typing import Dict
-
+from dateutil import parser 
 import dpath
 
 
@@ -34,7 +34,7 @@ def get_date(filing: Dict, path: str) -> date:
     """
     try:
         raw = dpath.util.get(filing, path)
-        return date.fromisoformat(raw)
+        return parser.parse(raw).date()#date.fromisoformat(raw)
     except (IndexError, KeyError, TypeError):
         return None
 

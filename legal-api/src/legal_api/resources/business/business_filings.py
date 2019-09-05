@@ -16,6 +16,7 @@
 Provides all the search and retrieval from the business entity datastore.
 """
 import datetime
+from dateutil import parser 
 from http import HTTPStatus
 from typing import Tuple
 
@@ -74,7 +75,7 @@ class ListFilingResource(Resource):
             return 'Please specify a single filing', HTTPStatus.NOT_ACCEPTABLE
 
         rv = []
-        go_live_date = datetime.date.fromisoformat(current_app.config.get('GO_LIVE_DATE'))
+        go_live_date = parser.parse(current_app.config.get('GO_LIVE_DATE'))
         filings = Filing.get_filings_by_status(business.id, [Filing.Status.COMPLETED.value], go_live_date)
         for filing in filings:
             rv.append(filing.json)

@@ -94,6 +94,7 @@ class QueueService():
         """Destroy all objects created by this extension."""
         try:
             this_loop=asyncio.get_event_loop()
+
             this_loop.run_until_complete(self.close())
         except:
             pass

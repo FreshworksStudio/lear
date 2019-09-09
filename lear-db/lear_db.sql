@@ -130,7 +130,8 @@ CREATE TABLE public.businesses (
     fiscal_year_end_date timestamp with time zone,
     submitter_userid integer,
     last_agm_date timestamp with time zone,
-    last_ledger_timestamp timestamp with time zone
+    last_ledger_timestamp timestamp with time zone,
+    entity_type character varying(10)
 );
 
 
@@ -179,7 +180,8 @@ CREATE TABLE public.businesses_version (
     end_transaction_id bigint,
     operation_type smallint NOT NULL,
     last_agm_date timestamp with time zone,
-    last_ledger_timestamp timestamp with time zone
+    last_ledger_timestamp timestamp with time zone,
+    entity_type character varying(10)
 );
 
 
@@ -4485,3 +4487,5 @@ ALTER TABLE ONLY public.filings
 -- PostgreSQL database dump complete
 --
 
+update businesses set entity_type = 'BCORP';
+update businesses_version set entity_type = 'BCORP';

@@ -9,7 +9,7 @@ APP_SETTINGS=dev
 DATABASE_USERNAME=userG5G
 DATABASE_PASSWORD=
 DATABASE_NAME=legal_test
-DATABASE_HOST=legal_db
+DATABASE_HOST=172.17.0.1
 DATABASE_PORT=5432
 
 # Test Database
@@ -29,10 +29,10 @@ JWT_OIDC_WELL_KNOWN_CONFIG=https://sso-test.pathfinder.gov.bc.ca/auth/realms/fcf
 
 # ## NATS - STAN
 NATS_SERVERS=nats://localhost:4222
-NATS_CLIENT_NAME=entity.legal_api
+NATS_CLIENT_NAME=entity.filing.tester
 NATS_CLUSTER_ID=test-cluster
-NATS_COLIN_SUBJECT=entity.filing.colin.incoming
-NATS_QUEUE=colin-filing-worker
+NATS_COLIN_SUBJECT=entity.filings
+NATS_QUEUE=filing-worker
 
 # ## MVP Settings
 GO_LIVE_DATE=2019-08-12

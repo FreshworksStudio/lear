@@ -79,9 +79,9 @@ export default {
 
   methods: {
     ...mapActions(['setKeycloakRoles', 'setAuthRoles', 'setBusinessEmail', 'setBusinessPhone',
-      'setBusinessPhoneExtension', 'setCurrentDate', 'setEntityName', 'setEntityStatus', 'setEntityBusinessNo',
-      'setEntityIncNo', 'setLastPreLoadFilingDate', 'setEntityFoundingDate', 'setLastAgmDate', 'setTasks',
-      'setFilings', 'setMailingAddress', 'setDeliveryAddress', 'setDirectors']),
+      'setBusinessPhoneExtension', 'setCurrentDate', 'setEntityName', 'setEntityType', 'setEntityStatus',
+      'setEntityBusinessNo', 'setEntityIncNo', 'setLastPreLoadFilingDate', 'setEntityFoundingDate',
+      'setLastAgmDate', 'setTasks', 'setFilings', 'setMailingAddress', 'setDeliveryAddress', 'setDirectors']),
 
     fetchData () {
       let businessId
@@ -101,6 +101,10 @@ export default {
       // check if current user is authorized
       this.getAuthorizations(businessId).then(data => {
         this.storeAuthRoles(data) // throws if no role
+
+        // Interim entityType assignment
+        // TODO: Determine how/where entityType will be passed into front-end
+        this.setEntityType('CP')
 
         // good so far ... fetch the rest of the data
         Promise.all([

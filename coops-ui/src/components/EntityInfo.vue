@@ -59,7 +59,7 @@ import { mapState, mapGetters } from 'vuex'
 @Component({
   computed: {
     // Property definitions for runtime environment.
-    ...mapState(['entityName', 'entityStatus', 'entityBusinessNo', 'entityIncNo',
+    ...mapState(['entityName', 'entityType', 'entityStatus', 'entityBusinessNo', 'entityIncNo',
       'businessEmail', 'businessPhone', 'businessPhoneExtension']),
     ...mapGetters(['isRoleStaff'])
   }

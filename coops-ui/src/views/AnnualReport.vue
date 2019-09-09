@@ -37,13 +37,24 @@
             <h1 id="AR-header">File {{ ARFilingYear }} Annual Report
               <span style="font-style: italic" v-if="reportState">- {{ reportState }}</span>
             </h1>
-            <p>Select your Annual General Meeting (AGM) date, and verify or change your Registered office address
-              and List of Directors as of your AGM.</p>
           </header>
 
           <div v-if="isAnnualReportEditable">
+
+            <!-- Annual Report Date ( BCORP ) -->
+            <section v-if="entityIdentifier('BC')">
+              <section>
+                <header>
+                  <p>Design TBD...</p>
+                  <h2 class="AR-date-header">Recognition Date: 2018-01-01</h2>
+                  <h2 class="AR-date-header">Annual Report Date: 2019-01-01</h2>
+                  <h2 class="AR-date-header">Filing Date: 2019-09-06</h2>
+                </header>
+              </section>
+            </section>
+
             <!-- Annual General Meeting Date -->
-            <section>
+            <section v-if="entityIdentifier('CP')">
               <header>
                 <h2 id="AR-step-1-header">1. Annual General Meeting Date</h2>
               </header>
@@ -55,7 +66,7 @@
               />
             </section>
 
-            <!-- Registered Office Addresses -->
+          <!-- Registered Office Addresses -->
             <section>
               <header>
                 <h2 id="AR-step-2-header">2. Registered Office Addresses
@@ -237,7 +248,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['currentDate', 'ARFilingYear', 'lastAgmDate', 'entityName',
+    ...mapState(['currentDate', 'ARFilingYear', 'lastAgmDate', 'entityName', 'entityType',
       'entityIncNo', 'entityFoundingDate']),
 
     ...mapGetters(['isRoleStaff', 'isAnnualReportEditable', 'reportState']),
@@ -392,6 +403,16 @@ export default {
         console.error('fetchData() error =', error)
         this.resumeErrorDialog = true
       })
+    },
+
+    /**
+     * Method to compare the conditional entity to the entityType defined from the Store.
+     *
+     * @param entity The entity type of the component.
+     * @return boolean A boolean indicating if the entityType matches the param.
+     */
+    entityIdentifier (entity: string) {
+      return this.entityType === entity
     },
 
     /**
@@ -649,7 +670,13 @@ h2
   font-size: 2rem;
   font-weight: 500;
 
-#AR-step-1-header, #AR-step-2-header, #AR-step-3-header, #AR-step-4-header
+.AR-step-1-header
+  margin-bottom: 0.25rem;
+  margin-top: 3rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+
+#AR-step-2-header, #AR-step-3-header, #AR-step-4-header
   margin-bottom: 0.25rem;
   margin-top: 3rem;
   font-size: 1.125rem;

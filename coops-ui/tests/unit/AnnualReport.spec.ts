@@ -25,9 +25,11 @@ describe('AnnualReport - Part 1 - UI', () => {
     store.state.entityIncNo = 'CP0001191'
     store.state.ARFilingYear = 2017
     store.state.currentFilingStatus = 'NEW'
+    store.state.filedDate = null
+    store.state.entityType = 'COOP'
   })
 
-  it('renders the Annual Report sub-components properly', () => {
+  it('renders the Annual Report sub-components properly when entityType is a COOP', () => {
     const $route = { params: { id: '0' } } // new filing id
     const wrapper = shallowMount(AnnualReport, { store, mocks: { $route } })
 

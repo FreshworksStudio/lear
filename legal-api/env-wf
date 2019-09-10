@@ -1,5 +1,5 @@
 SENTRY_DSN=
-PAYMENT_SVC_URL=https://mock-server/api/v1/payments
+PAYMENT_SVC_URL=https://mock-lear-tools.pathfinder.gov.bc.ca/rest/SBC+Pay+API+Reference/1.0.1/api/v1/payment-requests
 
 FLASK_APP=wsgi.py
 SECRET=

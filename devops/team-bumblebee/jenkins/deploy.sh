@@ -6,6 +6,7 @@ export OCP_PIPELINE_CLI_URL="https://raw.githubusercontent.com/BCDevOps/ocp-cd-p
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 curl -sSL "${OCP_PIPELINE_CLI_URL}" | bash -s deploy --config=config.groovy --pr=4 --env=dev
 =======
 curl -sSL "${OCP_PIPELINE_CLI_URL}" | bash -s deploy --config=config.groovy --pr=0 --env=dev
@@ -16,3 +17,6 @@ curl -sSL "${OCP_PIPELINE_CLI_URL}" | bash -s deploy --config=config.groovy --pr
 =======
 curl -sSL "${OCP_PIPELINE_CLI_URL}" | bash -s deploy --config=config.groovy --pr=4 --env=dev
 >>>>>>> 06a577d... Containerized UI, API, DB & Caddy Proxy  (#315)
+=======
+curl -sSL "${OCP_PIPELINE_CLI_URL}" | bash -s deploy --config=config.groovy --pr=4 --env=dev
+>>>>>>> 392e339... add jenkins build/deploy config

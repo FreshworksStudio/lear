@@ -5,4 +5,8 @@ export OCP_PIPELINE_CLI_URL="https://raw.githubusercontent.com/BCDevOps/ocp-cd-p
 
 # Replace PR parameter with the latest Pull Request number that's making any changes
 # to the jenkins build/deploy.
+<<<<<<< HEAD
 curl -sSL "${OCP_PIPELINE_CLI_URL}" | bash -s build --config=config.groovy --pr=4
+=======
+curl -sSL "${OCP_PIPELINE_CLI_URL}" | bash -s build --config=config.groovy --pr=731
+>>>>>>> a9c9ff2... add jenkins build/deploy config

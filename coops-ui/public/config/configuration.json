@@ -1,19 +1,7 @@
 {
   "API_URL": "https://legal-api-dev.pathfinder.gov.bc.ca/api/v1/businesses/",
   "AUTH_URL": "https://coops-dev.pathfinder.gov.bc.ca/auth/",
-<<<<<<< HEAD
-<<<<<<< HEAD
   "AUTH_API_URL": "https://auth-api-dev.pathfinder.gov.bc.ca/api/v1/",
   "PAY_API_URL": "https://pay-api-dev.pathfinder.gov.bc.ca/api/v1/",
   "ADDRESS_COMPLETE_KEY": "RZ86-BB54-CM96-EE26"
 }
-
-=======
-  "AUTH_API_URL": "https://auth-api-dev.pathfinder.gov.bc.ca/",
-=======
-  "AUTH_API_URL": "https://auth-api-dev.pathfinder.gov.bc.ca/api/v1/",
->>>>>>> b968ac5... updated AUTH_API_URL config and usage (#322)
-  "PAY_API_URL": "https://pay-api-dev.pathfinder.gov.bc.ca/api/v1/",
-  "ADDRESS_COMPLETE_KEY": "RZ86-BB54-CM96-EE26"
-}
->>>>>>> 57ec8d0... Reverted config and gitIgnore Change

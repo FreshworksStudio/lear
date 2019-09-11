@@ -86,7 +86,7 @@ class Business(db.Model):  # pylint: disable=too-many-instance-attributes
             raise BusinessException('invalid-identifier-format', 406)
 
     @property
-    def nextAnnualReport(self):
+    def nextAnniversary(self):
         LastAr = self.last_ar_date if self.last_ar_date else self.founding_date
         return datetime.date(LastAr + relativedelta(years = 1)).isoformat()
 
@@ -144,7 +144,7 @@ class Business(db.Model):  # pylint: disable=too-many-instance-attributes
             'identifier': self.identifier,
             'lastModified': self.last_modified.isoformat(),
             'lastAnnualReport': datetime.date(self.last_ar_date).isoformat() if self.last_ar_date else '',
-            'nextAnnualReport': self.nextAnnualReport,
+            'nextAnnualReport': self.nextAnniversary,
             'lastAnnualGeneralMeetingDate': datetime.date(self.last_agm_date).isoformat() if self.last_agm_date else '',
             'lastLedgerTimestamp': self.last_ledger_timestamp.isoformat(),
             'legalName': self.legal_name,

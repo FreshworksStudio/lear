@@ -479,7 +479,7 @@ def test_file_ar_no_agm_coop(session, client, jwt):
 def test_file_ar_no_agm_bcorp(session, client, jwt):
     """Assert that filing AR as BCORP with no AGM date succeeds."""
     identifier = 'CP7654399'
-    b = factory_business(identifier,(datetime.utcnow()-datedelta.YEAR) ,'B')
+    b = factory_business(identifier,(datetime.utcnow()-datedelta.YEAR),None ,'B')
     factory_business_mailing_address(b)
     ar = copy.deepcopy(ANNUAL_REPORT)
     ar['filing']['annualReport']['annualReportDate'] = datetime.utcnow().date().isoformat()
@@ -496,9 +496,9 @@ def test_file_ar_no_agm_bcorp(session, client, jwt):
 def test_calc_annual_report_date(session, client, jwt):
     """Assert that nextAnnualReport is the anniversary of the business recognition"""
     identifier = 'CP7654399'
-    b = factory_business(identifier,(datetime.utcnow()-datedelta.YEAR) ,'B')
+    b = factory_business(identifier,(datetime.utcnow()-datedelta.YEAR), None ,'B')
     factory_business_mailing_address(b)
-    assert b.nextAnnualReport == datetime.utcnow().date().isoformat()
+    assert b.nextAnniversary == datetime.utcnow().date().isoformat()
 
 # @integration_nats
 # @pytest.mark.asyncio

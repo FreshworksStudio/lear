@@ -2,19 +2,7 @@
 
 To add roles for jenkins to make changes to openshift you'll have to manually create accounts based on \_jenkins.role.json:
 Using JQ
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-`jq '{"kind":"List", "items":.objects}' _jenkins.role.json | oc create -f -`
-=======
 `jq '{"kind":"List", "items":.objects}' _jenkins.role.json | oc replace -f -`
->>>>>>> a9c9ff2... add jenkins build/deploy config
-=======
-`jq '{"kind":"List", "items":.objects}' _jenkins.role.json | oc create -f -`
->>>>>>> dd6c02e... Test Jenkinsfile
-=======
-`jq '{"kind":"List", "items":.objects}' _jenkins.role.json | oc create -f -`
->>>>>>> 06a577d... Containerized UI, API, DB & Caddy Proxy  (#315)
 
 To build the latest jenkins image, edit the build.sh with your PR number and run the command below
 `./build.sh`

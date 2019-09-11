@@ -14,7 +14,6 @@
 """Common utilities used by the services."""
 from datetime import date
 from typing import Dict
-from dateutil import parser 
 import dpath
 
 

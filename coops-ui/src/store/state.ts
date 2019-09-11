@@ -1,8 +1,6 @@
 export default {
   // tombstone data
-  keycloakRoles: [],
-  authRoles: [],
-  username: null,
+  corpNum: null,
   currentDate: null,
 
   // entity info
@@ -12,9 +10,6 @@ export default {
   entityIncNo: null,
   lastPreLoadFilingDate: null,
   entityFoundingDate: null,
-  businessEmail: null,
-  businessPhone: null,
-  businessPhoneExtension: null,
   lastAgmDate: null,
 
   ARFilingYear: null, /* Number */

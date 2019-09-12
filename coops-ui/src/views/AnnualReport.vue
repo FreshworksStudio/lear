@@ -42,14 +42,9 @@
           <div v-if="isAnnualReportEditable">
 
             <!-- Annual Report Date ( BCORP ) -->
-            <section v-if="entityIdentifier('BC')">
-                <header>
-                  <p>Design TBD...</p>
-                  <h2 class="AR-date-header">Recognition Date: 2018-01-01</h2>
-                  <h2 class="AR-date-header">Annual Report Date: 2019-01-01</h2>
-                  <h2 class="AR-date-header">Filing Date: 2019-09-06</h2>
-                </header>
-              </section>
+            <div v-if="entityIdentifier('BC')">
+              <h2>1. Placeholder for future ARDate Component</h2>
+            </div>
 
             <!-- Annual General Meeting Date -->
             <section v-if="entityIdentifier('CP')">
@@ -63,18 +58,6 @@
                 @valid="agmDateValid=$event"
               />
             </section>
-=======
-            <!-- Annual General Meeting Date ( COOP ) -->
-            <div v-if="entityIdentifier('CP')">
-              <section>
-                <header>
-                  <h2 class="AR-step-1-header">1. Annual General Meeting Date</h2>
-                  <p>Select your Annual General Meeting (AGM) date</p>
-                </header>
-                <AGMDate ref="agmDate" />
-              </section>
-            </div>
->>>>>>> updated entityType designation
 
           <!-- Registered Office Addresses -->
             <section>

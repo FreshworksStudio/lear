@@ -128,7 +128,7 @@ class TestConfig(_Config):  # pylint: disable=too-few-public-methods
     """
 
     DEBUG = True
-    TESTING = True
+    TESTING = False
     # POSTGRESQL
     DB_USER = os.getenv('DATABASE_TEST_USERNAME', '')
     DB_PASSWORD = os.getenv('DATABASE_TEST_PASSWORD', '')
@@ -181,7 +181,17 @@ class TestConfig(_Config):  # pylint: disable=too-few-public-methods
     }
 
 
-    JWT_OIDC_TEST_PRIVATE_KEY_PEM = str(pem.parse_file('tests/JWT_PRIVATE_KEY.pem')[0])
+        # JWT_OIDC Settings
+    JWT_OIDC_WELL_KNOWN_CONFIG = os.getenv('JWT_OIDC_WELL_KNOWN_CONFIG')
+    JWT_OIDC_ALGORITHMS = os.getenv('JWT_OIDC_ALGORITHMS')
+    JWT_OIDC_JWKS_URI = os.getenv('JWT_OIDC_JWKS_URI')
+    JWT_OIDC_ISSUER = os.getenv('JWT_OIDC_ISSUER')
+    JWT_OIDC_AUDIENCE = os.getenv('JWT_OIDC_AUDIENCE')
+    JWT_OIDC_CLIENT_SECRET = os.getenv('JWT_OIDC_CLIENT_SECRET')
+    JWT_OIDC_CACHING_ENABLED = os.getenv('JWT_OIDC_CACHING_ENABLED')
+
+
+    JWT_OIDC_TEST_PRIVATE_KEY_PEM = str(pem.parse_file('/home/peter/pytest.pem')[0])
 
 
 class ProdConfig(_Config):  # pylint: disable=too-few-public-methods

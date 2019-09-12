@@ -2,86 +2,22 @@
   <div>
     <ConfirmDialog ref="confirm" />
 
-    <v-dialog v-model="resumeErrorDialog" width="50rem" persistent>
-      <v-card>
-        <v-card-title>Unable to Resume Filing</v-card-title>
-        <v-card-text>
-          <p class="genErr">We were unable to resume your filing. You can return to your dashboard
-            and try again.</p>
-          <p class="genErr">If this error persists, please contact us.</p>
-          <p class="genErr">
-            <v-icon small>phone</v-icon>
-            <a href="tel:+1-250-952-0568" class="error-dialog-padding">250 952-0568</a>
-          </p>
-          <p class="genErr">
-            <v-icon small>email</v-icon>
-            <a href="mailto:SBC_ITOperationsSupport@gov.bc.ca" class="error-dialog-padding"
-              >SBC_ITOperationsSupport@gov.bc.ca</a>
-          </p>
-        </v-card-text>
-        <v-divider class="my-0"></v-divider>
-        <v-card-actions>
-          <v-btn color="primary" flat @click="navigateToDashboard">Return to dashboard</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <ResumeErrorDialog
+      :dialog="resumeErrorDialog"
+      @exit="navigateToDashboard"
+    />
 
-    <v-dialog v-model="saveErrorDialog" width="50rem">
-      <v-card>
-        <v-card-title>Unable to Save Filing</v-card-title>
-        <v-card-text>
-          <p class="genErr">We were unable to save your filing. You can continue to try to save this
-             filing or you can exit without saving and re-create this filing at another time.</p>
-          <p  class="genErr">If you exit this filing, any changes you've made will not be saved.</p>
-          <p class="genErr">
-            <v-icon small>phone</v-icon>
-            <a href="tel:+1-250-952-0568" class="error-dialog-padding">250 952-0568</a>
-          </p>
-          <p class="genErr">
-            <v-icon small>email</v-icon>
-            <a href="mailto:SBC_ITOperationsSupport@gov.bc.ca" class="error-dialog-padding"
-              >SBC_ITOperationsSupport@gov.bc.ca</a>
-          </p>
-        </v-card-text>
-        <v-divider class="my-0"></v-divider>
-        <v-card-actions>
-          <v-btn color="primary" flat @click="navigateToDashboard">Exit without saving</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" flat @click="onClickFilePay" :disabled="filingPaying">Retry</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <SaveErrorDialog
+      :dialog="saveErrorDialog"
+      :disableRetry="filingPaying"
+      @exit="navigateToDashboard"
+      @retry="onClickFilePay"
+    />
 
-    <v-dialog v-model="paymentErrorDialog" width="60rem">
-      <v-card>
-        <v-card-title>Unable to Process Payment</v-card-title>
-        <v-card-text>
-          <p class="genErr">PayBC is unable to process payments at this time.</p>
-          <p class="genErr">Your filing has been saved as a DRAFT and you can resume your filing from your Dashboard
-            at a later time.</p>
-          <p class="genErr">PayBC is normally available:</p>
-          <p class="genErr">
-            Monday to Friday: 6:00am to 9:00pm
-            <br />Saturday: 12:00am to 7:00pm
-            <br />Sunday: 12:00pm to 12:00am
-          </p>
-          <p class="genErr">
-            <v-icon small>phone</v-icon>
-            <a href="tel:+1-250-952-0568" class="error-dialog-padding">250 952-0568</a>
-          </p>
-          <p class="genErr">
-            <v-icon small>email</v-icon>
-            <a href="mailto:SBC_ITOperationsSupport@gov.bc.ca" class="error-dialog-padding"
-              >SBC_ITOperationsSupport@gov.bc.ca</a>
-          </p>
-        </v-card-text>
-        <v-divider class="my-0"></v-divider>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" flat @click="navigateToDashboard">Back to My Dashboard</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <PaymentErrorDialog
+      :dialog="paymentErrorDialog"
+      @exit="navigateToDashboard"
+    />
 
     <div id="standalone-directors" ref="standaloneDirectors">
       <!-- Initial Page Load Transition -->
@@ -98,7 +34,7 @@
             <h1 id="filing-header">Change of Directors</h1>
 
             <v-alert type="info" :value="true" icon="info" outline style="background-color: white;">
-              Director changes can be made as far back as {{ lastFilingDate }}.
+              Director changes can be made as far back as {{ earliestDateToSet }}.
             </v-alert>
           </header>
 
@@ -106,7 +42,7 @@
           <section>
             <Directors ref="directorsList"
               @directorsChange="directorsChange"
-              @lastFilingDate="lastFilingDate=$event"
+              @earliestDateToSet="earliestDateToSet=$event"
               @directorFormValid="directorFormValid=$event"
               @allDirectors="allDirectors=$event"
               :asOfDate="currentDate"
@@ -135,13 +71,13 @@
       <v-container id="buttons-container" class="list-item">
         <div class="buttons-left">
           <v-btn id="cod-save-btn" large
-            :disabled="!saveButtonEnabled || saving"
+            :disabled="!isSaveButtonEnabled || saving"
             :loading="saving"
             @click="onClickSave">
             Save
           </v-btn>
           <v-btn id="cod-save-resume-btn" large
-            :disabled="!saveButtonEnabled || savingResuming"
+            :disabled="!isSaveButtonEnabled || savingResuming"
             :loading="savingResuming"
             @click="onClickSaveResume">
             Save &amp; Resume Later
@@ -184,6 +120,9 @@ import { mapState, mapActions } from 'vuex'
 import { PAYMENT_REQUIRED } from 'http-status-codes'
 import Certify from '@/components/AnnualReport/Certify.vue'
 import ConfirmDialog from '@/components/ConfirmDialog.vue'
+import PaymentErrorDialog from '@/components/AnnualReport/PaymentErrorDialog.vue'
+import ResumeErrorDialog from '@/components/AnnualReport/ResumeErrorDialog.vue'
+import SaveErrorDialog from '@/components/AnnualReport/SaveErrorDialog.vue'
 
 export default {
   name: 'StandaloneDirectorsFiling',
@@ -193,7 +132,10 @@ export default {
     SbcFeeSummary,
     Affix,
     Certify,
-    ConfirmDialog
+    ConfirmDialog,
+    PaymentErrorDialog,
+    ResumeErrorDialog,
+    SaveErrorDialog
   },
 
   data () {
@@ -204,7 +146,7 @@ export default {
       resumeErrorDialog: false,
       saveErrorDialog: false,
       paymentErrorDialog: false,
-      lastFilingDate: 'your last filing',
+      earliestDateToSet: 'your last filing',
       isCertified: false,
       certifiedBy: '',
       directorFormValid: true,
@@ -223,7 +165,7 @@ export default {
       return (this.isCertified && this.directorFormValid && this.filingData.length > 0)
     },
 
-    saveButtonEnabled () {
+    isSaveButtonEnabled () {
       return (this.directorFormValid && this.filingData.length > 0)
     },
 

@@ -2,86 +2,22 @@
   <div>
     <ConfirmDialog ref="confirm" />
 
-    <v-dialog v-model="resumeErrorDialog" width="50rem" persistent>
-      <v-card>
-        <v-card-title>Unable to Resume Filing</v-card-title>
-        <v-card-text>
-          <p class="genErr">We were unable to resume your filing. You can return to your dashboard
-            and try again.</p>
-          <p class="genErr">If this error persists, please contact us.</p>
-          <p class="genErr">
-            <v-icon small>phone</v-icon>
-            <a href="tel:+1-250-952-0568" class="error-dialog-padding">250 952-0568</a>
-          </p>
-          <p class="genErr">
-            <v-icon small>email</v-icon>
-            <a href="mailto:SBC_ITOperationsSupport@gov.bc.ca" class="error-dialog-padding"
-              >SBC_ITOperationsSupport@gov.bc.ca</a>
-          </p>
-        </v-card-text>
-        <v-divider class="my-0"></v-divider>
-        <v-card-actions>
-          <v-btn color="primary" flat @click="navigateToDashboard">Return to dashboard</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <ResumeErrorDialog
+      :dialog="resumeErrorDialog"
+      @exit="navigateToDashboard"
+    />
 
-    <v-dialog v-model="saveErrorDialog" width="50rem">
-      <v-card>
-        <v-card-title>Unable to Save Filing</v-card-title>
-        <v-card-text>
-          <p class="genErr">We were unable to save your filing. You can continue to try to save this
-             filing or you can exit without saving and re-create this filing at another time.</p>
-          <p  class="genErr">If you exit this filing, any changes you've made will not be saved.</p>
-          <p class="genErr">
-            <v-icon small>phone</v-icon>
-            <a href="tel:+1-250-952-0568" class="error-dialog-padding">250 952-0568</a>
-          </p>
-          <p class="genErr">
-            <v-icon small>email</v-icon>
-            <a href="mailto:SBC_ITOperationsSupport@gov.bc.ca" class="error-dialog-padding"
-              >SBC_ITOperationsSupport@gov.bc.ca</a>
-          </p>
-        </v-card-text>
-        <v-divider class="my-0"></v-divider>
-        <v-card-actions>
-          <v-btn color="primary" flat @click="navigateToDashboard">Exit without saving</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" flat @click="onClickFilePay" :disabled="filingPaying">Retry</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <SaveErrorDialog
+      :dialog="saveErrorDialog"
+      :disableRetry="filingPaying"
+      @exit="navigateToDashboard"
+      @retry="onClickFilePay"
+    />
 
-    <v-dialog v-model="paymentErrorDialog" width="60rem">
-      <v-card>
-        <v-card-title>Unable to Process Payment</v-card-title>
-        <v-card-text>
-          <p class="genErr">PayBC is unable to process payments at this time.</p>
-          <p class="genErr">Your filing has been saved as a DRAFT and you can resume your filing from your Dashboard
-            at a later time.</p>
-          <p class="genErr">PayBC is normally available:</p>
-          <p class="genErr">
-            Monday to Friday: 6:00am to 9:00pm
-            <br />Saturday: 12:00am to 7:00pm
-            <br />Sunday: 12:00pm to 12:00am
-          </p>
-          <p class="genErr">
-            <v-icon small>phone</v-icon>
-            <a href="tel:+1-250-952-0568" class="error-dialog-padding">250 952-0568</a>
-          </p>
-          <p class="genErr">
-            <v-icon small>email</v-icon>
-            <a href="mailto:SBC_ITOperationsSupport@gov.bc.ca" class="error-dialog-padding"
-              >SBC_ITOperationsSupport@gov.bc.ca</a>
-          </p>
-        </v-card-text>
-        <v-divider class="my-0"></v-divider>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" flat @click="navigateToDashboard">Back to My Dashboard</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <PaymentErrorDialog
+      :dialog="paymentErrorDialog"
+      @exit="navigateToDashboard"
+    />
 
     <div id="annual-report">
       <!-- Initial Page Load Transition -->
@@ -108,7 +44,12 @@
               <header>
                 <h2 id="AR-step-1-header">1. Annual General Meeting Date</h2>
               </header>
-              <AGMDate ref="agmDate" />
+              <AGMDate
+                :initialAgmDate="initialAgmDate"
+                @agmDate="agmDate=$event"
+                @noAGM="noAGM=$event"
+                @valid="agmDateValid=$event"
+              />
             </section>
 
             <!-- Registered Office Addresses -->
@@ -124,7 +65,8 @@
                 :legalEntityNumber="corpNum"
                 :addresses.sync="addresses"
                 @modified="officeModifiedEventHandler($event)"
-                @valid="officeValidEventHandler($event)" />
+                @valid="addressesFormValid=$event"
+              />
             </section>
 
             <!-- Directors -->
@@ -137,6 +79,7 @@
               <Directors ref="directorsList"
                 @directorsChange="directorsChange"
                 @allDirectors="allDirectors=$event"
+                @directorFormValid="directorFormValid=$event"
                 :asOfDate="agmDate"
                 :componentEnabled="agmDateValid"
               />
@@ -150,7 +93,10 @@
               </header>
               <Certify
                 :isCertified.sync="isCertified"
-                :certifiedBy.sync="certifiedBy" />
+                :certifiedBy.sync="certifiedBy"
+                :currentDate="currentDate"
+                @valid="certifyFormValid=$event"
+              />
             </section>
           </div>
           <!-- <div v-else>
@@ -218,10 +164,13 @@ import RegisteredOfficeAddress from '@/components/AnnualReport/RegisteredOfficeA
 import Directors from '@/components/AnnualReport/Directors.vue'
 import { Affix } from 'vue-affix'
 import SbcFeeSummary from 'sbc-common-components/src/components/SbcFeeSummary.vue'
-import { mapState, mapActions, mapGetters } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import { PAYMENT_REQUIRED } from 'http-status-codes'
 import Certify from '@/components/AnnualReport/Certify.vue'
 import ConfirmDialog from '@/components/ConfirmDialog.vue'
+import PaymentErrorDialog from '@/components/AnnualReport/PaymentErrorDialog.vue'
+import ResumeErrorDialog from '@/components/AnnualReport/ResumeErrorDialog.vue'
+import SaveErrorDialog from '@/components/AnnualReport/SaveErrorDialog.vue'
 import DateUtils from '@/DateUtils'
 
 export default {
@@ -233,25 +182,45 @@ export default {
     AGMDate,
     RegisteredOfficeAddress,
     Directors,
-    SbcFeeSummary,
-    Affix,
     Certify,
-    ConfirmDialog
+    Affix,
+    SbcFeeSummary,
+    ConfirmDialog,
+    PaymentErrorDialog,
+    ResumeErrorDialog,
+    SaveErrorDialog
   },
 
   data () {
     return {
+      // properties for AGMDate component
+      initialAgmDate: null,
+      agmDate: null,
+      noAGM: false,
+      agmDateValid: false,
+
+      // properties for RegisteredOfficeAddress component
       addresses: null,
+      addressesFormValid: true,
+
+      // properties for Directors component
       allDirectors: [],
-      filingId: null,
-      loadingMessage: 'Loading...', // initial generic message
-      filingData: [],
+      directorFormValid: true,
+
+      // properties for Certify component
+      certifiedBy: '',
+      isCertified: false,
+      certifyFormValid: null,
+
+      // flags for displaying dialogs
       resumeErrorDialog: false,
       saveErrorDialog: false,
       paymentErrorDialog: false,
-      isCertified: false,
-      certifiedBy: '',
-      isSaveButtonEnabled: false,
+
+      // other local properties
+      filingId: null,
+      loadingMessage: 'Loading...', // initial generic message
+      filingData: [],
       saving: false,
       savingResuming: false,
       filingPaying: false,
@@ -260,10 +229,8 @@ export default {
   },
 
   computed: {
-    ...mapState(['agmDate', 'noAGM', 'regOffAddrChange',
-      'validated', 'currentDate', 'ARFilingYear', 'corpNum', 'lastAgmDate',
-      'entityName', 'entityIncNo', 'entityFoundingDate', 'currentFilingStatus',
-      'addressesFormValid', 'directorFormValid', 'agmDateValid']),
+    ...mapState(['currentDate', 'ARFilingYear', 'corpNum', 'lastAgmDate',
+      'entityName', 'entityIncNo', 'entityFoundingDate']),
 
     ...mapGetters(['isAnnualReportEditable', 'reportState']),
 
@@ -276,6 +243,14 @@ export default {
 
     payAPIURL () {
       return sessionStorage.getItem('PAY_API_URL')
+    },
+
+    validated () {
+      return this.agmDateValid && this.addressesFormValid && this.directorFormValid && this.certifyFormValid
+    },
+
+    isSaveButtonEnabled () {
+      return this.agmDateValid && this.addressesFormValid && this.directorFormValid
     }
   },
 
@@ -333,9 +308,6 @@ export default {
   },
 
   methods: {
-    ...mapActions(['setARFilingYear', 'setRegOffAddrChange', 'setValidated',
-      'setAddressesFormValid', 'setDirectorFormValid', 'setAgmDateValid']),
-
     fetchData () {
       const url = this.corpNum + '/filings/' + this.filingId
       axios.get(url).then(response => {
@@ -356,14 +328,14 @@ export default {
             // load Annual Report fields
             const annualReport = filing.annualReport
             if (annualReport) {
+              // set the Draft Date in the Directors List component
               // TODO: use props instead of $refs (which cause an error in the unit tests)
-              // NOTE: AR Filing Year (which is needed by agmDate component) was already set by Todo List
               if (this.$refs.directorsList.setDraftDate) {
                 this.$refs.directorsList.setDraftDate(annualReport.annualGeneralMeetingDate)
               }
-              if (this.$refs.agmDate.loadAgmDate) {
-                this.$refs.agmDate.loadAgmDate(annualReport.annualGeneralMeetingDate)
-              }
+              // set the Initial AGM Date in the AGM Date component
+              // NOTE: AR Filing Year (which is needed by agmDate component) was already set by Todo List
+              this.initialAgmDate = annualReport.annualGeneralMeetingDate
               this.toggleFiling('add', 'OTANN')
             } else {
               throw new Error('missing annual report')
@@ -423,18 +395,7 @@ export default {
     officeModifiedEventHandler (modified: boolean): void {
       this.haveChanges = true
       // when addresses change, update filing data
-      this.setRegOffAddrChange(modified)
       this.toggleFiling(modified ? 'add' : 'remove', 'OTADD')
-    },
-
-    /**
-     * Callback method for the "valid" event from RegisteredOfficeAddress.
-     *
-     * @param valid a boolean that is true if the office addresses form contains valid data.
-     */
-    officeValidEventHandler (valid: boolean): void {
-      this.setAddressesFormValid(valid)
-      this.setValidateFlag()
     },
 
     directorsChange (modified: boolean) {
@@ -510,7 +471,7 @@ export default {
 
       const annualReport = {
         annualReport: {
-          annualGeneralMeetingDate: this.agmDate,
+          annualGeneralMeetingDate: this.noAGM ? null : this.agmDate,
           annualReportDate: this.annualReportDate,
           deliveryAddress: this.addresses['deliveryAddress'],
           mailingAddress: this.addresses['mailingAddress'],
@@ -610,44 +571,28 @@ export default {
       this.haveChanges = false
       this.dialog = false
       this.$router.push('/dashboard')
-    },
-
-    setValidateFlag () {
-      // compute the AR page's valid state
-      this.setValidated(this.agmDateValid && this.addressesFormValid && this.directorFormValid && this.isCertified)
-      this.isSaveButtonEnabled = this.agmDateValid && this.addressesFormValid && this.directorFormValid
     }
   },
 
   watch: {
-    agmDate (modified: boolean) {
+    agmDate (val: string) {
       this.haveChanges = true
       // when AGM Date changes, update filing data
-      this.toggleFiling(modified ? 'add' : 'remove', 'OTANN')
+      this.toggleFiling(val ? 'add' : 'remove', 'OTANN')
     },
 
-    noAGM (modified: boolean) {
+    noAGM (val: boolean) {
       this.haveChanges = true
       // when No AGM changes, update filing data
-      this.toggleFiling(modified ? 'add' : 'remove', 'OTANN')
+      this.toggleFiling(val ? 'add' : 'remove', 'OTANN')
     },
 
-    agmDateValid (val) {
-      this.setValidateFlag()
-    },
-
-    directorFormValid (val) {
-      this.setValidateFlag()
-    },
-
-    isCertified (val) {
+    isCertified (val: boolean) {
       this.haveChanges = true
-      this.setValidateFlag()
     },
 
-    certifiedBy (val) {
+    certifiedBy (val: string) {
       this.haveChanges = true
-      this.setValidateFlag()
     }
   }
 }
@@ -704,10 +649,4 @@ h2
 
   .v-btn + .v-btn
     margin-left: 0.5rem;
-
-.genErr
-  font-size: 0.9rem;
-
-.error-dialog-padding
-  margin-left: 1rem;
 </style>

@@ -26,7 +26,7 @@ describe('AnnualReport - Part 1 - UI', () => {
     store.state.ARFilingYear = 2017
     store.state.currentFilingStatus = 'NEW'
     store.state.filedDate = null
-    store.state.entityType = 'COOP'
+    store.state.entityType = 'CP'
   })
 
   it('renders the Annual Report sub-components properly when entityType is a COOP', () => {

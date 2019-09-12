@@ -182,6 +182,7 @@ class TestConfig(_Config):  # pylint: disable=too-few-public-methods
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         # JWT_OIDC Settings
     JWT_OIDC_WELL_KNOWN_CONFIG = os.getenv('JWT_OIDC_WELL_KNOWN_CONFIG')
     JWT_OIDC_ALGORITHMS = os.getenv('JWT_OIDC_ALGORITHMS')
@@ -196,6 +197,9 @@ class TestConfig(_Config):  # pylint: disable=too-few-public-methods
 =======
     JWT_OIDC_TEST_PRIVATE_KEY_PEM = str(pem.parse_file('tests/JWT_PRIVATE_KEY.pem')[0])
 >>>>>>> 5bf75faf0328e3d8226d3aaf1408240e1eb78d4a
+=======
+    JWT_OIDC_TEST_PRIVATE_KEY_PEM = str(pem.parse_file('tests/JWT_PRIVATE_KEY.pem')[0])
+>>>>>>> 5bf75fa... add check for agm date required
 
 
 class ProdConfig(_Config):  # pylint: disable=too-few-public-methods

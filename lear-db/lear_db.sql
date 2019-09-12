@@ -4526,6 +4526,10 @@ update public.businesses_version set entity_type=public.businesses.entity_type f
 =======
 update businesses set entity_type = 'BCORP' where id in (select id from businesses order by founding_date asc limit 25);
 update businesses set entity_type = 'COOP' where id in (select id from businesses order by founding_date desc limit 25);
+<<<<<<< HEAD
 >>>>>>> d0f8cc0... bypass AGM check for BCORP, split entities in half (COOP and BCORP)
 
+=======
+update businesses set founding_date = now() - interval '366 days';
+>>>>>>> 5bf75fa... add check for agm date required
 update businesses_version set entity_type=businesses.entity_type from businesses  where businesses_version.id = businesses.id;

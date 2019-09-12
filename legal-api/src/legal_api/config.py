@@ -176,8 +176,6 @@ class TestConfig(_Config):  # pylint: disable=too-few-public-methods
         ]
     }
 
-
-
 class ProdConfig(_Config):  # pylint: disable=too-few-public-methods
     """Production environment configuration."""
 

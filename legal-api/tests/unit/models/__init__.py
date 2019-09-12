@@ -94,7 +94,8 @@ AR_FILING = {
 }
 
 
-def factory_business(identifier, founding_date=EPOCH_DATETIME, last_ar_date=None):
+def factory_business(identifier, founding_date=EPOCH_DATETIME, last_ar_date=None, entityType='COOP'):
+>>>>>>> add check for agm date required
     """Create a business entity."""
     business = Business(legal_name=f'legal_name-{identifier}',
                         founding_date=founding_date,
@@ -103,7 +104,8 @@ def factory_business(identifier, founding_date=EPOCH_DATETIME, last_ar_date=None
                         # dissolution_date=EPOCH_DATETIME,
                         identifier=identifier,
                         tax_id='BN123456789',
-                        fiscal_year_end_date=FROZEN_DATETIME)
+                        fiscal_year_end_date=FROZEN_DATETIME, 
+                        entity_type=entityType)
 
     business.save()
     return business

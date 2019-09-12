@@ -4488,5 +4488,10 @@ ALTER TABLE ONLY public.filings
 --
 update businesses set entity_type = 'BCORP' where id in (select id from businesses order by founding_date asc limit 25);
 update businesses set entity_type = 'COOP' where id in (select id from businesses order by founding_date desc limit 25);
+<<<<<<< HEAD
 
 update businesses_version set entity_type=businesses.entity_type from businesses  where businesses_version.id = businesses.id;
+=======
+update businesses set founding_date = now() - interval '366 days';
+update businesses_version set entity_type=businesses.entity_type from businesses  where businesses_version.id = businesses.id;
+>>>>>>> add check for agm date required

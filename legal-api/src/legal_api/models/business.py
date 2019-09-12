@@ -16,7 +16,7 @@
 The Business class and Schema are held in this module
 """
 from datetime import datetime
-
+from dateutil.relativedelta import relativedelta
 from sqlalchemy.exc import OperationalError, ResourceClosedError
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import backref
@@ -86,6 +86,11 @@ class Business(db.Model):  # pylint: disable=too-many-instance-attributes
         else:
             raise BusinessException('invalid-identifier-format', 406)
 
+    @property
+    def nextAnnualReport(self):
+        LastAr = self.last_ar_date if self.last_ar_date else self.founding_date
+        return datetime.date(LastAr + relativedelta(years = 1)).isoformat()
+
     @classmethod
     def find_by_legal_name(cls, legal_name: str = None):
         """Given a legal_name, this will return an Active Business."""
@@ -140,6 +145,7 @@ class Business(db.Model):  # pylint: disable=too-many-instance-attributes
             'identifier': self.identifier,
             'lastModified': self.last_modified.isoformat(),
             'lastAnnualReport': datetime.date(self.last_ar_date).isoformat() if self.last_ar_date else '',
+            'nextAnnualReport': self.nextAnnualReport,
             'lastAnnualGeneralMeetingDate': datetime.date(self.last_agm_date).isoformat() if self.last_agm_date else '',
             'lastLedgerTimestamp': self.last_ledger_timestamp.isoformat(),
             'legalName': self.legal_name,
@@ -182,7 +188,7 @@ class Business(db.Model):  # pylint: disable=too-many-instance-attributes
                 return False
         except ValueError:
             return False
-
+         #TODO This is not correct for entity types that are not Coops
         if identifier[:-7] not in ('CP', 'XCP'):
             return False
 

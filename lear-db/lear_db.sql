@@ -4486,7 +4486,8 @@ ALTER TABLE ONLY public.filings
 --
 -- PostgreSQL database dump complete
 --
-update public.businesses set entity_type = 'BCORP' where id in (select id from public.businesses order by founding_date asc limit 25);
-update public.businesses set entity_type = 'COOP' where id in (select id from public.businesses order by founding_date desc limit 25);
-update public.businesses set founding_date = now() - interval '366 days';
-update public.businesses_version set entity_type=public.businesses.entity_type from public.businesses  where public.businesses_version.id = public.businesses.id;
+update businesses set entity_type = 'BCORP' where id in (select id from businesses order by founding_date asc limit 25);
+update businesses set entity_type = 'COOP' where id in (select id from businesses order by founding_date desc limit 25);
+update businesses set founding_date = now() - interval '366 days';
+update businesses_version set entity_type=businesses.entity_type from businesses  where businesses_version.id = businesses.id;
+

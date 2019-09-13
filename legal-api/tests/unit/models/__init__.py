@@ -94,7 +94,7 @@ AR_FILING = {
 }
 
 
-def factory_business(identifier, founding_date=EPOCH_DATETIME,entityType='COOP'):
+def factory_business(identifier, founding_date=EPOCH_DATETIME,entityType='CP'):
     """Create a business entity."""
     business = Business(legal_name=f'legal_name-{identifier}',
                         founding_date=founding_date,
@@ -103,7 +103,7 @@ def factory_business(identifier, founding_date=EPOCH_DATETIME,entityType='COOP')
                         identifier=identifier,
                         tax_id='BN123456789',
                         fiscal_year_end_date=FROZEN_DATETIME, 
-                        entity_type=entityType)
+                        legal_type=entityType)
 
     business.save()
     return business

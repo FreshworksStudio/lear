@@ -194,12 +194,16 @@ class TestConfig(_Config):  # pylint: disable=too-few-public-methods
 
 
     JWT_OIDC_TEST_PRIVATE_KEY_PEM = str(pem.parse_file('/home/peter/pytest.pem')[0])
+<<<<<<< HEAD
 =======
     JWT_OIDC_TEST_PRIVATE_KEY_PEM = str(pem.parse_file('tests/JWT_PRIVATE_KEY.pem')[0])
 >>>>>>> 5bf75faf0328e3d8226d3aaf1408240e1eb78d4a
 =======
     JWT_OIDC_TEST_PRIVATE_KEY_PEM = str(pem.parse_file('tests/JWT_PRIVATE_KEY.pem')[0])
 >>>>>>> 5bf75fa... add check for agm date required
+=======
+
+>>>>>>> 8b19e2c... add updated schema for legal_type column
 
 
 class ProdConfig(_Config):  # pylint: disable=too-few-public-methods

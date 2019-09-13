@@ -9,22 +9,22 @@ APP_SETTINGS=dev
 DATABASE_USERNAME=userG5G
 DATABASE_PASSWORD=
 DATABASE_NAME=legal_test
-<<<<<<< HEAD
-DATABASE_HOST=172.17.0.1
-=======
 DATABASE_HOST=legal_db
+<<<<<<< HEAD
 >>>>>>> bfd7d91... Implemented Caddy, Docker files for ui, api, db, modified env variables
+=======
+>>>>>>> 8b19e2c... add updated schema for legal_type column
 DATABASE_PORT=5432
 
 # Test Database
 DATABASE_TEST_USERNAME=userG5G
 DATABASE_TEST_PASSWORD=
 DATABASE_TEST_NAME=legal_test
-<<<<<<< HEAD
-DATABASE_TEST_HOST=172.17.0.1
-=======
 DATABASE_TEST_HOST=legal_db
+<<<<<<< HEAD
 >>>>>>> bfd7d91... Implemented Caddy, Docker files for ui, api, db, modified env variables
+=======
+>>>>>>> 8b19e2c... add updated schema for legal_type column
 DATABASE_TEST_PORT=5432
 
 # JWT setup

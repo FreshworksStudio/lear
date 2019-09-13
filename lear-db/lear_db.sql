@@ -130,7 +130,6 @@ CREATE TABLE public.businesses (
     fiscal_year_end_date timestamp with time zone,
     submitter_userid integer,
     last_agm_date timestamp with time zone,
-<<<<<<< HEAD
     last_ledger_timestamp timestamp with time zone,
 <<<<<<< HEAD
     entity_type character varying(10)
@@ -152,7 +151,13 @@ CREATE TABLE public.businesses (
 =======
     last_ledger_timestamp timestamp with time zone
 >>>>>>> bfd7d91... Implemented Caddy, Docker files for ui, api, db, modified env variables
+<<<<<<< HEAD
 >>>>>>> Implemented Caddy, Docker files for ui, api, db, modified env variables
+=======
+=======
+    legal_type character varying(10)
+>>>>>>> 8b19e2c... add updated schema for legal_type column
+>>>>>>> add updated schema for legal_type column
 );
 
 
@@ -204,6 +209,7 @@ CREATE TABLE public.businesses_version (
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     last_ledger_timestamp timestamp with time zone,
 <<<<<<< HEAD
     entity_type character varying(10)
@@ -221,12 +227,21 @@ CREATE TABLE public.businesses_version (
     entity_type character varying(10)
 >>>>>>> Added changes to .env-wf
 =======
+=======
+>>>>>>> add updated schema for legal_type column
     last_ledger_timestamp timestamp with time zone,
+<<<<<<< HEAD
     entity_type character varying(10)
 =======
     last_ledger_timestamp timestamp with time zone
 >>>>>>> bfd7d91... Implemented Caddy, Docker files for ui, api, db, modified env variables
+<<<<<<< HEAD
 >>>>>>> Implemented Caddy, Docker files for ui, api, db, modified env variables
+=======
+=======
+    legal_type character varying(10)
+>>>>>>> 8b19e2c... add updated schema for legal_type column
+>>>>>>> add updated schema for legal_type column
 );
 
 
@@ -3810,6 +3825,7 @@ COPY public.directors_version (id, first_name, middle_initial, last_name, title,
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -3834,7 +3850,13 @@ COPY public.directors_version (id, first_name, middle_initial, last_name, title,
 =======
 
 >>>>>>> bfd7d91... Implemented Caddy, Docker files for ui, api, db, modified env variables
+<<<<<<< HEAD
 >>>>>>> Implemented Caddy, Docker files for ui, api, db, modified env variables
+=======
+=======
+/*
+>>>>>>> 8b19e2c... add updated schema for legal_type column
+>>>>>>> add updated schema for legal_type column
 COPY public.filings (id, filing_date, filing_type, filing_json, payment_id, transaction_id, business_id, submitter_id, colin_event_id, status, payment_completion_date) FROM stdin;
 102	2019-08-21 03:12:41.997395+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	103	\N	\N	\N	DRAFT	\N
 103	2019-08-21 03:12:48.306417+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	104	\N	\N	\N	DRAFT	\N
@@ -3891,6 +3913,7 @@ COPY public.filings (id, filing_date, filing_type, filing_json, payment_id, tran
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 */
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -3915,7 +3938,13 @@ COPY public.filings (id, filing_date, filing_type, filing_json, payment_id, tran
 =======
 
 >>>>>>> bfd7d91... Implemented Caddy, Docker files for ui, api, db, modified env variables
+<<<<<<< HEAD
 >>>>>>> Implemented Caddy, Docker files for ui, api, db, modified env variables
+=======
+=======
+*/
+>>>>>>> 8b19e2c... add updated schema for legal_type column
+>>>>>>> add updated schema for legal_type column
 
 --
 -- Data for Name: transaction; Type: TABLE DATA; Schema: public; Owner: userG5G
@@ -3923,6 +3952,7 @@ COPY public.filings (id, filing_date, filing_type, filing_json, payment_id, tran
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -3947,7 +3977,13 @@ COPY public.filings (id, filing_date, filing_type, filing_json, payment_id, tran
 =======
 
 >>>>>>> bfd7d91... Implemented Caddy, Docker files for ui, api, db, modified env variables
+<<<<<<< HEAD
 >>>>>>> Implemented Caddy, Docker files for ui, api, db, modified env variables
+=======
+=======
+/*
+>>>>>>> 8b19e2c... add updated schema for legal_type column
+>>>>>>> add updated schema for legal_type column
 COPY public.transaction (issued_at, id, remote_addr) FROM stdin;
 2019-08-20 17:24:19.232727	1	\N
 2019-08-20 17:24:24.150925	2	\N
@@ -4104,6 +4140,7 @@ COPY public.transaction (issued_at, id, remote_addr) FROM stdin;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 */
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -4128,7 +4165,13 @@ COPY public.transaction (issued_at, id, remote_addr) FROM stdin;
 =======
 
 >>>>>>> bfd7d91... Implemented Caddy, Docker files for ui, api, db, modified env variables
+<<<<<<< HEAD
 >>>>>>> Implemented Caddy, Docker files for ui, api, db, modified env variables
+=======
+=======
+*/
+>>>>>>> 8b19e2c... add updated schema for legal_type column
+>>>>>>> add updated schema for legal_type column
 
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: userG5G
@@ -4644,3 +4687,4 @@ update public.businesses set legal_type = 'BC' where id in (select id from publi
 update public.businesses set legal_type = 'CP' where id in (select id from public.businesses order by founding_date desc limit 25);
 update public.businesses set founding_date = now() - interval '366 days';
 update public.businesses_version set legal_type=public.businesses.legal_type from public.businesses  where public.businesses_version.id = public.businesses.id;
+

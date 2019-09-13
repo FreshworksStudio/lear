@@ -13,12 +13,16 @@ local-project: setup-local-env build-local-project run-local-project
 ## Sets the configuration to a local-build
 setup-local-env:
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@touch ./coops-ui/config/.env.local
 	@cp ./coops-ui/config/.env.template ./coops-ui/config/.env.local
 	@cp ./coops-ui/config/.env.local ./coops-ui/.env
 =======
 	@cp ./coops-ui/public/config/local-configuration.json ./coops-ui/public/config/configuration.json
 >>>>>>> bfd7d91... Implemented Caddy, Docker files for ui, api, db, modified env variables
+=======
+	@cp ./coops-ui/public/config/local-configuration.json ./coops-ui/public/config/configuration.json
+>>>>>>> 06a577d... Containerized UI, API, DB & Caddy Proxy  (#315)
 
 ## Builds the local project
 build-local-project:

@@ -104,7 +104,7 @@ def factory_business(identifier, founding_date=EPOCH_DATETIME, last_ar_date=None
                         identifier=identifier,
                         tax_id='BN123456789',
                         fiscal_year_end_date=FROZEN_DATETIME, 
-                        entity_type=entityType)
+                        legal_type=entityType)
 
     business.save()
     return business

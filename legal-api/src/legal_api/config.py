@@ -191,7 +191,7 @@ class TestConfig(_Config):  # pylint: disable=too-few-public-methods
     JWT_OIDC_CACHING_ENABLED = os.getenv('JWT_OIDC_CACHING_ENABLED')
 
 
-JWT_OIDC_TEST_PRIVATE_KEY_PEM = str(pem.parse_file('/home/peter/pytest.pem')[0])
+    JWT_OIDC_TEST_PRIVATE_KEY_PEM = str(pem.parse_file('/home/peter/pytest.pem')[0])
 
 
 

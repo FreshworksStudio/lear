@@ -7,4 +7,3 @@ export OCP_PIPELINE_CLI_URL="https://raw.githubusercontent.com/BCDevOps/ocp-cd-p
 # to the jenkins build/deploy.
 
 curl -sSL "${OCP_PIPELINE_CLI_URL}" | bash -s build --config=config.groovy --pr=4
-

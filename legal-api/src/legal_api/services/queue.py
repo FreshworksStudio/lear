@@ -94,11 +94,15 @@ class QueueService():
         """Destroy all objects created by this extension."""
         try:
 <<<<<<< HEAD
+<<<<<<< HEAD
             this_loop=asyncio.get_event_loop()
 
 =======
             this_loop = asyncio.get_event_loop()
 >>>>>>> bfd7d91... Implemented Caddy, Docker files for ui, api, db, modified env variables
+=======
+            this_loop = asyncio.get_event_loop()
+>>>>>>> 06a577d... Containerized UI, API, DB & Caddy Proxy  (#315)
             this_loop.run_until_complete(self.close())
         except:
             pass

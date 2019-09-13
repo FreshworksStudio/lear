@@ -16,4 +16,4 @@ from .authz import BASIC_USER, COLIN_SVC_ROLE, STAFF_ROLE, authorized
 from .queue import QueueService
 
 
-queue = QueueService()  # pylint: disable=invalid-name; shared variables are lower case by Flask convention.
+#queue = QueueService()  # pylint: disable=invalid-name; shared variables are lower case by Flask convention.

@@ -65,7 +65,7 @@ class TaskListResource(Resource):
             todo_start_year = datetime.strptime(last_filing['filing']['annualReport']['annualGeneralMeetingDate'],
                                                 '%Y-%m-%d').year + 1
 
-        if todo_start_year <= datetime.now().year:
+        if todo_start_year <= datetime.now().year: #and datetime.now() > business.nextAnnualReport:
             for todo_year in range(todo_start_year, datetime.now().year+1):
                 enabled = not pending_filings and todo_year == todo_start_year
                 tasks.append(TaskListResource.create_todo(business, todo_year, order, enabled))

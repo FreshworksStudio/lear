@@ -454,12 +454,12 @@ def test_file_ar_no_agm_coop(session, client, jwt):
                     )
 
     assert rv.status_code == HTTPStatus.BAD_REQUEST
-    assert rv.json['errors'][0]['error'] == 'annualGeneralMeetingDate must be a valid date when submitting an Annual Report in the current year.'
+    assert rv.json['errors'][0]['error'] == 'Annual General MeetingDate must be a valid date when submitting an Annual Report in the current year.'
 
 def test_file_ar_no_agm_bcorp(session, client, jwt):
     """Assert that filing AR as BCORP with no AGM date succeeds."""
     identifier = 'CP7654399'
-    b = factory_business(identifier,(datetime.utcnow()-datedelta.YEAR) ,'BCORP')
+    b = factory_business(identifier,(datetime.utcnow()-datedelta.YEAR) ,'B')
     factory_business_mailing_address(b)
     ar = copy.deepcopy(ANNUAL_REPORT)
     ar['filing']['annualReport']['annualReportDate'] = datetime.utcnow().date().isoformat()

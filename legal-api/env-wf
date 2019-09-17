@@ -35,4 +35,8 @@ NATS_COLIN_SUBJECT=entity.filings
 NATS_QUEUE=filing-worker
 
 # ## MVP Settings
+<<<<<<< HEAD
 GO_LIVE_DATE=2019-05-12
+=======
+GO_LIVE_DATE=2019-08-12
+>>>>>>> master

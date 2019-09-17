@@ -493,6 +493,13 @@ def test_file_ar_no_agm_bcorp(session, client, jwt):
 
     assert rv.status_code == HTTPStatus.CREATED
 
+def test_calc_annual_report_date(session, client, jwt):
+    """Assert that nextAnnualReport is the anniversary of the business recognition"""
+    identifier = 'CP7654399'
+    b = factory_business(identifier,(datetime.utcnow()-datedelta.YEAR) ,'B')
+    factory_business_mailing_address(b)
+    assert b.nextAnnualReport == datetime.utcnow().date().isoformat()
+
 # @integration_nats
 # @pytest.mark.asyncio
 # async def test_colin_filing_to_queue(app_ctx, session, client, jwt, stan_server, event_loop):

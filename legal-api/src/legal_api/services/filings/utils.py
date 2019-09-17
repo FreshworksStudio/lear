@@ -34,7 +34,7 @@ def get_date(filing: Dict, path: str) -> date:
     """
     try:
         raw = dpath.util.get(filing, path)
-        return parser.parse(raw).date()#date.fromisoformat(raw)
+        return date.fromisoformat(raw)
     except (IndexError, KeyError, TypeError):
         return None
 

@@ -39,11 +39,7 @@ services:
     build:
       context: legal-api
     env_file:
-<<<<<<< HEAD
-      - ./legal-api/env-wf
-=======
       - ./legal-api/.env
->>>>>>> 06a577d... Containerized UI, API, DB & Caddy Proxy  (#315)
     ports:
       - 5000:5000
     networks:

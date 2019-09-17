@@ -130,19 +130,7 @@ CREATE TABLE public.businesses (
     fiscal_year_end_date timestamp with time zone,
     submitter_userid integer,
     last_agm_date timestamp with time zone,
-<<<<<<< HEAD
-    last_ledger_timestamp timestamp with time zone,
-<<<<<<< HEAD
-    entity_type character varying(10)
-=======
     last_ledger_timestamp timestamp with time zone
->>>>>>> bfd7d91... Implemented Caddy, Docker files for ui, api, db, modified env variables
-=======
-    legal_type character varying(10)
->>>>>>> 8b19e2c... add updated schema for legal_type column
-=======
-    last_ledger_timestamp timestamp with time zone
->>>>>>> 06a577d... Containerized UI, API, DB & Caddy Proxy  (#315)
 );
 
 
@@ -191,19 +179,7 @@ CREATE TABLE public.businesses_version (
     end_transaction_id bigint,
     operation_type smallint NOT NULL,
     last_agm_date timestamp with time zone,
-<<<<<<< HEAD
-    last_ledger_timestamp timestamp with time zone,
-<<<<<<< HEAD
-    entity_type character varying(10)
-=======
     last_ledger_timestamp timestamp with time zone
->>>>>>> bfd7d91... Implemented Caddy, Docker files for ui, api, db, modified env variables
-=======
-    legal_type character varying(10)
->>>>>>> 8b19e2c... add updated schema for legal_type column
-=======
-    last_ledger_timestamp timestamp with time zone
->>>>>>> 06a577d... Containerized UI, API, DB & Caddy Proxy  (#315)
 );
 
 
@@ -3784,27 +3760,6 @@ COPY public.directors_version (id, first_name, middle_initial, last_name, title,
 --
 -- Data for Name: filings; Type: TABLE DATA; Schema: public; Owner: userG5G
 --
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-/*
-=======
-
->>>>>>> 19d0c1c... Implemented Caddy, Docker files for ui, api, db, modified env variables
-=======
-/*
->>>>>>> d0f8cc0... bypass AGM check for BCORP, split entities in half (COOP and BCORP)
-=======
-
->>>>>>> bfd7d91... Implemented Caddy, Docker files for ui, api, db, modified env variables
-=======
-/*
->>>>>>> 8b19e2c... add updated schema for legal_type column
-=======
-
->>>>>>> 06a577d... Containerized UI, API, DB & Caddy Proxy  (#315)
 COPY public.filings (id, filing_date, filing_type, filing_json, payment_id, transaction_id, business_id, submitter_id, colin_event_id, status, payment_completion_date) FROM stdin;
 102	2019-08-21 03:12:41.997395+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	103	\N	\N	\N	DRAFT	\N
 103	2019-08-21 03:12:48.306417+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	104	\N	\N	\N	DRAFT	\N
@@ -3858,52 +3813,10 @@ COPY public.filings (id, filing_date, filing_type, filing_json, payment_id, tran
 151	2019-08-21 16:16:16.538741+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	152	\N	\N	\N	DRAFT	\N
 152	2019-08-21 16:16:22.054738+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	153	\N	\N	\N	DRAFT	\N
 \.
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-*/
-=======
-
->>>>>>> 19d0c1c... Implemented Caddy, Docker files for ui, api, db, modified env variables
-=======
-*/
->>>>>>> d0f8cc0... bypass AGM check for BCORP, split entities in half (COOP and BCORP)
-=======
-
->>>>>>> bfd7d91... Implemented Caddy, Docker files for ui, api, db, modified env variables
-=======
-*/
->>>>>>> 8b19e2c... add updated schema for legal_type column
-=======
-
->>>>>>> 06a577d... Containerized UI, API, DB & Caddy Proxy  (#315)
 
 --
 -- Data for Name: transaction; Type: TABLE DATA; Schema: public; Owner: userG5G
 --
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-/*
-=======
-
->>>>>>> 19d0c1c... Implemented Caddy, Docker files for ui, api, db, modified env variables
-=======
-/*
->>>>>>> d0f8cc0... bypass AGM check for BCORP, split entities in half (COOP and BCORP)
-=======
-
->>>>>>> bfd7d91... Implemented Caddy, Docker files for ui, api, db, modified env variables
-=======
-/*
->>>>>>> 8b19e2c... add updated schema for legal_type column
-=======
-
->>>>>>> 06a577d... Containerized UI, API, DB & Caddy Proxy  (#315)
 COPY public.transaction (issued_at, id, remote_addr) FROM stdin;
 2019-08-20 17:24:19.232727	1	\N
 2019-08-20 17:24:24.150925	2	\N
@@ -4057,27 +3970,6 @@ COPY public.transaction (issued_at, id, remote_addr) FROM stdin;
 2019-08-21 16:16:15.926743	152	\N
 2019-08-21 16:16:21.423977	153	\N
 \.
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-*/
-=======
-
->>>>>>> 19d0c1c... Implemented Caddy, Docker files for ui, api, db, modified env variables
-=======
-*/
->>>>>>> d0f8cc0... bypass AGM check for BCORP, split entities in half (COOP and BCORP)
-=======
-
->>>>>>> bfd7d91... Implemented Caddy, Docker files for ui, api, db, modified env variables
-=======
-*/
->>>>>>> 8b19e2c... add updated schema for legal_type column
-=======
-
->>>>>>> 06a577d... Containerized UI, API, DB & Caddy Proxy  (#315)
 
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: userG5G
@@ -4588,35 +4480,9 @@ ALTER TABLE ONLY public.filings
 --
 -- PostgreSQL database dump complete
 --
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-update public.businesses set entity_type = 'BCORP' where id in (select id from public.businesses order by founding_date asc limit 25);
-update public.businesses set entity_type = 'COOP' where id in (select id from public.businesses order by founding_date desc limit 25);
+
+update public.businesses set entity_type = 'BC' where id in (select id from public.businesses order by founding_date asc limit 25);
+update public.businesses set entity_type = 'CP' where id in (select id from public.businesses order by founding_date desc limit 25);
 update public.businesses set founding_date = now() - interval '366 days';
 update public.businesses_version set entity_type=public.businesses.entity_type from public.businesses  where public.businesses_version.id = public.businesses.id;
-=======
-update businesses set entity_type = 'BCORP' where id in (select id from businesses order by founding_date asc limit 25);
-update businesses set entity_type = 'COOP' where id in (select id from businesses order by founding_date desc limit 25);
-<<<<<<< HEAD
->>>>>>> d0f8cc0... bypass AGM check for BCORP, split entities in half (COOP and BCORP)
 
-=======
-update businesses set founding_date = now() - interval '366 days';
->>>>>>> 5bf75fa... add check for agm date required
-update businesses_version set entity_type=businesses.entity_type from businesses  where businesses_version.id = businesses.id;
-=======
-
->>>>>>> bfd7d91... Implemented Caddy, Docker files for ui, api, db, modified env variables
-=======
-
-update public.businesses set legal_type = 'BC' where id in (select id from public.businesses order by founding_date asc limit 25);
-update public.businesses set legal_type = 'CP' where id in (select id from public.businesses order by founding_date desc limit 25);
-update public.businesses set founding_date = now() - interval '366 days';
-update public.businesses_version set legal_type=public.businesses.legal_type from public.businesses  where public.businesses_version.id = public.businesses.id;
-
->>>>>>> 8b19e2c... add updated schema for legal_type column
-=======
-
->>>>>>> 06a577d... Containerized UI, API, DB & Caddy Proxy  (#315)

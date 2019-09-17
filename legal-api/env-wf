@@ -12,11 +12,14 @@ DATABASE_NAME=legal_test
 DATABASE_HOST=legal_db
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> bfd7d91... Implemented Caddy, Docker files for ui, api, db, modified env variables
 =======
 >>>>>>> 8b19e2c... add updated schema for legal_type column
 =======
 >>>>>>> 245815b... Implemented Caddy, Docker files for ui, api, db, modified env variables
+=======
+>>>>>>> 98423a2f864611c7203eb542b720642607eb9d01
 DATABASE_PORT=5432
 
 # Test Database
@@ -26,11 +29,14 @@ DATABASE_TEST_NAME=legal_test
 DATABASE_TEST_HOST=legal_db
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> bfd7d91... Implemented Caddy, Docker files for ui, api, db, modified env variables
 =======
 >>>>>>> 8b19e2c... add updated schema for legal_type column
 =======
 >>>>>>> 245815b... Implemented Caddy, Docker files for ui, api, db, modified env variables
+=======
+>>>>>>> 98423a2f864611c7203eb542b720642607eb9d01
 DATABASE_TEST_PORT=5432
 
 # JWT setup
@@ -49,4 +55,12 @@ NATS_COLIN_SUBJECT=entity.filings
 NATS_QUEUE=filing-worker
 
 # ## MVP Settings
+<<<<<<< HEAD
 GO_LIVE_DATE=2019-08-12
+=======
+<<<<<<< HEAD
+GO_LIVE_DATE=2019-05-12
+=======
+GO_LIVE_DATE=2019-08-12
+>>>>>>> master
+>>>>>>> 98423a2f864611c7203eb542b720642607eb9d01

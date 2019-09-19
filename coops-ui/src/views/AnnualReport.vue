@@ -64,7 +64,7 @@
                   The information displayed on this form reflects the state of your corporation on this date each year.
                 </p>
               </header>
-              <h1>~AR Date component placeholder~</h1>
+              <ARDate />
             </section>
 
             <!-- Registered Office Addresses -->
@@ -191,7 +191,8 @@ import ResumeErrorDialog from '@/components/AnnualReport/ResumeErrorDialog.vue'
 import SaveErrorDialog from '@/components/AnnualReport/SaveErrorDialog.vue'
 import DateMixin from '@/mixins/date-mixin'
 import EntityFilterMixin from '@/mixins/entityFilter-mixin'
-import { EntityTypes } from '@/utils/constants'
+import { EntityTypes } from '@/ts/enums'
+import ARDate from '@/components/AnnualReport/BCorp/ARDate.vue'
 
 export default {
   name: 'AnnualReport',
@@ -199,6 +200,7 @@ export default {
   mixins: [DateMixin, EntityFilterMixin],
 
   components: {
+    ARDate,
     AGMDate,
     RegisteredOfficeAddress,
     Directors,

@@ -13,7 +13,6 @@
 # limitations under the License.
 """File processing rules and actions for the annual report."""
 import datetime
-from dateutil import parser 
 from legal_api.models import Business, Filing
 from legal_api.services.filings import validations
 from entity_filer.service_utils import logger
@@ -24,9 +23,9 @@ def process(business: Business, filing: Filing):
     agm_date = filing['annualReport'].get('annualGeneralMeetingDate')
     ar_date = filing['annualReport'].get('annualReportDate')
     if agm_date and validations.annual_report.RequiresAGM(business):
-        agm_date = parser.parse(agm_date).date()
+        agm_date = datetime.date.fromisoformat(agm_date).date()
     if ar_date:
-        ar_date = parser.parse(ar_date).date()
+        ar_date = datetime.date.fromisoformat(ar_date).date()
     else:
         # should never get here (schema validation should prevent this from making it to the filer)
         logger.error('No annualReportDate given for in annual report. Filing id: %s', filing.id)

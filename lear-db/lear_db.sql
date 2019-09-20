@@ -180,7 +180,7 @@ CREATE TABLE public.businesses_version (
     end_transaction_id bigint,
     operation_type smallint NOT NULL,
     last_agm_date timestamp with time zone,
-    last_ledger_timestamp timestamp with time zone, 
+    last_ledger_timestamp timestamp with time zone,
     legal_type  character varying(10)
 );
 

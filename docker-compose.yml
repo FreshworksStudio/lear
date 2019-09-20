@@ -51,6 +51,8 @@ services:
     container_name: legal_db
     build:
       context: lear-db
+    env_file:
+      - ./legal-api/.env
     ports:
       - 5432:5432
     networks:

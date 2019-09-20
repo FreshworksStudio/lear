@@ -38,5 +38,4 @@ export default class ARDate extends DateMixin {
       .date
         font-family: "BC Sans"
         margin-right: 4.5rem
-
 </style>

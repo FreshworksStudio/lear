@@ -90,6 +90,7 @@ export default {
 
       try {
         const jwt = this.getJWT()
+        console.log(jwt)
         const keycloakRoles = this.getKeycloakRoles(jwt)
         this.setKeycloakRoles(keycloakRoles)
         businessId = this.getBusinessId()
@@ -113,6 +114,7 @@ export default {
           axios.get(businessId + '/addresses'),
           axios.get(businessId + '/directors')
         ]).then(data => {
+          console.log(data)
           if (!data || data.length !== 6) throw new Error('incomplete data')
           this.storeBusinessInfo(data[0])
           this.storeEntityInfo(data[1])

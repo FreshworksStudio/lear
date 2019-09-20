@@ -131,11 +131,7 @@ CREATE TABLE public.businesses (
     submitter_userid integer,
     last_agm_date timestamp with time zone,
     last_ledger_timestamp timestamp with time zone,
-<<<<<<< HEAD
     legal_type character varying(10)
-=======
-    legal_type  character varying(10)
->>>>>>> Implemented EntityFilter. Unit Testing. Updated AR component
 );
 
 
@@ -185,11 +181,7 @@ CREATE TABLE public.businesses_version (
     operation_type smallint NOT NULL,
     last_agm_date timestamp with time zone,
     last_ledger_timestamp timestamp with time zone,
-<<<<<<< HEAD
     legal_type character varying(10)
-=======
-    legal_type  character varying(10)
->>>>>>> Implemented EntityFilter. Unit Testing. Updated AR component
 );
 
 

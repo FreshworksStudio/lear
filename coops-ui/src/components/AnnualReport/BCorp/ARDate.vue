@@ -1,9 +1,9 @@
 <template>
   <v-card flat class="container">
     <div class="timeline">
-        <span class="title">Annual Report Date</span>
+        <label>Annual Report Date</label>
         <span class="date ar-date">{{this.toReadableDate(this.nextARDate)}}</span>
-        <span class="title">Filing Date</span>
+        <label>Filing Date</label>
         <span class="date file-date">Today ({{this.toReadableDate(new Date())}})</span>
       </div>
   </v-card>
@@ -30,18 +30,13 @@ export default class ARDate extends DateMixin {
 
     .timeline
       display: flex
+      justify-content space-between
 
-      .title
-        color: #262626
-        font-size: 1rem
+      label
         font-weight: 500
-        line-height: 1.2rem
 
       .date
-        color: #262626
         font-family: "BC Sans"
-        font-size: 0.875rem
-        line-height: 1.125rem
-        margin: 0 3.125rem 0
+        margin-right: 4.5rem
 
 </style>

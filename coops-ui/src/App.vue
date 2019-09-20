@@ -113,7 +113,6 @@ export default {
           axios.get(businessId + '/addresses'),
           axios.get(businessId + '/directors')
         ]).then(data => {
-          console.log(data)
           if (!data || data.length !== 6) throw new Error('incomplete data')
           this.storeBusinessInfo(data[0])
           this.storeEntityInfo(data[1])

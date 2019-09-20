@@ -1,40 +1,36 @@
+/* eslint promise/param-names: 0, prefer-promise-reject-errors: 0 */
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import Vuelidate from 'vuelidate'
-import ARDate from '@/components/AnnualReport/BCorp/ARDate.vue'
-import DateMixin from '@/mixins/date-mixin'
+
 import store from '@/store/store'
-import { createLocalVue } from '@vue/test-utils'
-import { mixins } from 'vue-class-component'
+import { shallowMount } from '@vue/test-utils'
+import ARDate from '@/components/AnnualReport/BCorp/ARDate.vue'
 
 Vue.use(Vuetify)
 Vue.use(Vuelidate)
 
-// Boilerplate to prevent the complaint "[Vuetify] Unable to locate target [data-app]"
-const app: HTMLDivElement = document.createElement('div')
-app.setAttribute('data-app', 'true')
-document.body.append(app)
-
-describe('ARDate', () => {
-  let vm
-
-  beforeEach(done => {
-    const Constructor = Vue.extend(ARDate)
-    const instance = new Constructor({ store: store })
-    vm = instance.$mount()
-
-    Vue.nextTick(() => {
-      done()
-    })
+describe('AnnualReport - Part 1 - UI', () => {
+  beforeEach(() => {
+    // init store
+    store.state.nextARDate = '2020-09-18T23:15:53.785045+00:00'
   })
 
-  it('displays ARDate component properly', async done => {
-     vm.$store.state.nextARDate = '2019-09-16'
+  it('initializes the store variables properly', () => {
+    const wrapper = shallowMount(ARDate, { store })
+    const vm: any = wrapper.vm
 
-    Vue.nextTick(() => {
-      expect(vm.$el.querySelector('.ar-date').textContent).toEqual('Sept 16 2019')
-      expect(vm.$el.querySelector('.file-date').textContent).toEqual('Today ()')
-      done()
-    })
+    expect(vm.$store.state.nextARDate).toEqual('2020-09-18T23:15:53.785045+00:00')
+    wrapper.destroy()
+  })
+
+  it('succeeds when the Annual report date outputs are correct', () => {
+    const wrapper = shallowMount(ARDate, { store })
+    const vm: any = wrapper.vm
+    const today = new Date().toDateString().split(' ').slice(1).join(' ')
+
+    expect(vm.$el.querySelector('.ar-date').textContent).toContain('Sep 18 2020')
+    expect(vm.$el.querySelector('.file-date').textContent).toContain(`Today (${today})`)
+    wrapper.destroy()
   })
 })

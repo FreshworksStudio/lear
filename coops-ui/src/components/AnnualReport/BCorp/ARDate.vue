@@ -2,18 +2,24 @@
   <v-card flat class="container">
     <div class="timeline">
         <label>Annual Report Date</label>
-        <span class="date">Sept 01, 2019</span>
+        <span class="date ar-date">{{this.toReadableDate(this.nextARDate)}}</span>
         <label>Filing Date</label>
-        <span class="date">Today (Sept 16, 2019)</span>
+        <span class="date file-date">Today ({{this.toReadableDate(new Date())}})</span>
       </div>
   </v-card>
 </template>w
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component } from 'vue-property-decorator'
+import { mapState } from 'vuex'
+import DateMixin from '@/mixins/date-mixin'
 
-@Component
-export default class ARDate extends Vue {
-  // TODO: Retrieve Dates Data Dynamically.
+@Component({
+  computed: {
+    ...mapState(['nextARDate'])
+  }
+})
+export default class ARDate extends DateMixin {
+    readonly nextARDate: string
 }
 </script>
 <style lang="stylus" scoped>

@@ -14,11 +14,9 @@
 """File processing rules and actions for the annual report."""
 import datetime
 from typing import Dict
-
 from entity_queue_common.service_utils import logger
 from legal_api.models import Business
 from legal_api.services.filings import validations
-
 
 def process(business: Business, filing: Dict):
     """Render the annual_report onto the business model objects."""

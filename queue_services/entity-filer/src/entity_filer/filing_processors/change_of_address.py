@@ -12,18 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """File processing rules and actions for the change of address."""
-# <<<<<<< HEAD:queue_services/entity-filer/src/entity_filer/filing_processors/change_of_address.py
-# from typing import Dict
-#
-# from legal_api.models import Business
-# =======
-import json
-
-from legal_api.models import Business, Filing
-# >>>>>>> Add offices (#377):entity-filer/src/entity_filer/filing_processors/change_of_address.py
-
+from typing import Dict
+from legal_api.models import Business
 from entity_filer.filing_processors import update_address
-
 
 def process(business: Business, filing: Dict):
     """Render the change_of_address onto the business model objects."""

@@ -16,7 +16,7 @@ import Directors from '@/components/AnnualReport/Directors.vue'
 import Certify from '@/components/AnnualReport/Certify.vue'
 import { BAD_REQUEST } from 'http-status-codes'
 import { EntityTypes } from '@/ts/enums'
-import ARDate from '@/components/AnnualReport/BCorp/ARDate.vue'
+import { ARDate, OfficeAddresses } from '@/components/AnnualReport/BCorp/'
 
 Vue.use(Vuetify)
 Vue.use(Vuelidate)
@@ -49,27 +49,40 @@ describe('AnnualReport - Part 1 - UI', () => {
     const wrapper = shallowMount(AnnualReport, { store, mocks: { $route } })
 
     expect(wrapper.find(ARDate).exists()).toBe(true)
-    expect(wrapper.find(RegisteredOfficeAddress).exists()).toBe(true)
+    expect(wrapper.find(OfficeAddresses).exists()).toBe(true)
     expect(wrapper.find(Directors).exists()).toBe(true)
     expect(wrapper.find(Certify).exists()).toBe(true)
 
     wrapper.destroy()
   })
 
-  it('initializes the store variables properly', () => {
+  it('initializes the store variables properly when COOP', () => {
+    store.state.entityType = EntityTypes.Coop
     const $route = { params: { id: '0' } } // new filing id
     const wrapper = shallowMount(AnnualReport, { store, mocks: { $route } })
     const vm: any = wrapper.vm
 
     expect(vm.$store.state.entityIncNo).toEqual('CP0001191')
-    expect(vm.$store.state.entityType).toEqual('mockType')
+    expect(vm.$store.state.entityType).toEqual(EntityTypes.Coop)
     expect(vm.$store.state.ARFilingYear).toEqual(2017)
     expect(vm.$store.state.currentFilingStatus).toEqual('NEW')
 
     // check titles and sub-titles
     expect(vm.$el.querySelector('#AR-header').textContent).toContain('2017')
-    expect(vm.$el.querySelector('#AR-step-2-header span').textContent).toContain('2017')
-    expect(vm.$el.querySelector('#AR-step-3-header + p').textContent).toContain('2017')
+    expect(vm.$el.querySelector('.AR-step-header span').textContent).toContain('2017')
+
+    wrapper.destroy()
+  })
+
+  it('initializes the store variables properly when BCORP', () => {
+    store.state.entityType = EntityTypes.BCorp
+    const $route = { params: { id: '0' } } // new filing id
+    const wrapper = shallowMount(AnnualReport, { store, mocks: { $route } })
+    const vm: any = wrapper.vm
+
+    expect(vm.$store.state.entityIncNo).toEqual('CP0001191')
+    expect(vm.$store.state.entityType).toEqual(EntityTypes.BCorp)
+    expect(vm.$store.state.currentFilingStatus).toEqual('NEW')
 
     wrapper.destroy()
   })

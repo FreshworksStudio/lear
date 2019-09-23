@@ -45,7 +45,7 @@
             <!-- Annual General Meeting Date ( COOP ) -->
             <section v-if="entityFilter(EntityTypes.Coop)">
               <header>
-                <h2 id="AR-step-1-header">1. Annual General Meeting Date</h2>
+                <h2 class="AR-step-header">1. Annual General Meeting Date</h2>
                 <p>Select your Annual General Meeting (AGM) date</p>
               </header>
               <AGMDate
@@ -54,23 +54,10 @@
                 @noAGM="noAGM=$event"
                 @valid="agmDateValid=$event"
               />
-            </section>
 
-            <!-- Annual Report Date ( BCORP ) -->
-            <section v-if="entityFilter(EntityTypes.BCorp)">
+            <!-- Registered Office Addresses ( COOP ) -->
               <header>
-                <h2 id="AR-step-1-header-BC">1. Dates</h2>
-                <p>Your Annual Report Date is the anniversary of the date your corporation was started.<br>
-                  The information displayed on this form reflects the state of your corporation on this date each year.
-                </p>
-              </header>
-              <ARDate />
-            </section>
-
-            <!-- Registered Office Addresses -->
-            <section>
-              <header>
-                <h2 id="AR-step-2-header">2. Registered Office Addresses
+                <h2 class="AR-step-header">2. Registered Office Addresses
                   <span class="agm-date">(as of {{ ARFilingYear }} Annual General Meeting)</span>
                 </h2>
                 <p>Verify or change your Registered Office Addresses.</p>
@@ -84,10 +71,22 @@
               />
             </section>
 
+            <!-- Annual Report ( BCORP ) -->
+            <section v-if="entityFilter(EntityTypes.BCorp)">
+              <ARDate />
+              <OfficeAddresses
+                :changeButtonDisabled="!agmDateValid"
+                :legalEntityNumber="entityIncNo"
+                :addresses.sync="addresses"
+                @modified="officeModifiedEventHandler($event)"
+                @valid="addressesFormValid=$event"
+              />
+            </section>
+
             <!-- Directors -->
             <section>
               <header>
-                <h2 id="AR-step-3-header">3. Directors</h2>
+                <h2 class="AR-step-header">3. Directors</h2>
                 <p>Tell us who was elected or appointed and who ceased to be a director at your
                   {{ ARFilingYear }} AGM.</p>
               </header>
@@ -103,7 +102,7 @@
             <!-- Certify -->
             <section>
               <header>
-                <h2 id="AR-step-4-header">4. Certify Correct</h2>
+                <h2 class="AR-step-header">4. Certify Correct</h2>
                 <p>Enter the name of the current director, officer, or lawyer submitting this Annual Report.</p>
               </header>
               <Certify
@@ -192,7 +191,7 @@ import SaveErrorDialog from '@/components/AnnualReport/SaveErrorDialog.vue'
 import DateMixin from '@/mixins/date-mixin'
 import EntityFilterMixin from '@/mixins/entityFilter-mixin'
 import { EntityTypes } from '@/ts/enums'
-import ARDate from '@/components/AnnualReport/BCorp/ARDate.vue'
+import { ARDate, OfficeAddresses } from '@/components/AnnualReport/BCorp/'
 
 export default {
   name: 'AnnualReport',
@@ -201,6 +200,7 @@ export default {
 
   components: {
     ARDate,
+    OfficeAddresses,
     AGMDate,
     RegisteredOfficeAddress,
     Directors,
@@ -256,7 +256,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['currentDate', 'ARFilingYear', 'lastAgmDate', 'entityName',
+    ...mapState(['currentDate', 'ARFilingYear', 'nextARDate', 'lastAgmDate', 'entityName',
       'entityIncNo', 'entityFoundingDate']),
 
     ...mapGetters(['isRoleStaff', 'isAnnualReportEditable', 'reportState']),
@@ -668,7 +668,7 @@ h2
   font-size: 2rem;
   font-weight: 500;
 
-#AR-step-1-header, #AR-step-1-header-BC, #AR-step-2-header, #AR-step-3-header, #AR-step-4-header
+.AR-step-header
   margin-bottom: 0.25rem;
   margin-top: 3rem;
   font-size: 1.125rem;

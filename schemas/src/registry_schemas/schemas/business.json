@@ -70,6 +70,15 @@
                         "1970-01-01T00:00:00+00:00"
                     ]
                 },
+                "nextAnnualReport": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "The Next Annual Report Schema",
+                  "default": "",
+                  "examples": [
+                    "1970-01-01T00:00:00+00:00"
+                  ]
+                },
                 "identifier": {
                     "type": "string",
                     "title": "The Identifier Schema",

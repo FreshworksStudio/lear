@@ -1,7 +1,7 @@
 <template>
   <section>
     <header>
-      <h2 class="AR-step-header">2. Office Addresses</h2>
+      <h2 class="AR-step-header">Office Addresses</h2>
       <p>Verify or change your Office Addresses.</p>
     </header>
     <v-card flat>
@@ -535,15 +535,15 @@ h2
   flex-flow: column nowrap
   position: relative
 
-.meta-container__inner
-  margin-top: 1rem
+  .meta-container__inner
+    margin-top: 0.5rem
 
-  label
-    font-weight: 500
-    margin-bottom 50rem
+label
+  font-weight: 700
+  margin-top: 0.5rem
 
-  &__inner
-    flex: 1 1 auto
+&__inner
+  flex: 1 1 auto
 
 @media (min-width: 768px)
   .meta-container
@@ -555,12 +555,7 @@ h2
       width: 12rem
 
   .meta-container__inner
-    margin-top: 0
-
-// List Layout
-.list
-  li
-    border-bottom: 1px solid $gray3;
+    margin-top: 0.5rem
 
 .address-list .form
   margin-top: 1rem;

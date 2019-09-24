@@ -37,8 +37,7 @@
             <h1 id="AR-header">File {{ ARFilingYear }} Annual Report
               <span style="font-style: italic" v-if="reportState">- {{ reportState }}</span>
             </h1>
-            <p>Select your Annual General Meeting (AGM) date, and verify or change your Registered office address
-              and List of Directors as of your AGM.</p>
+            <p>Please verify or change your Office Addresses and Directors.</p>
           </header>
 
           <div v-if="isAnnualReportEditable">

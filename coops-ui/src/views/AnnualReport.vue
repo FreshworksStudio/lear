@@ -252,7 +252,7 @@ export default {
       saveErrors: [],
       saveWarnings: [],
 
-      // Constant properties
+      // EntityTypes Enum
       EntityTypes
     }
   },

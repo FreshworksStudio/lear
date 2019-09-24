@@ -19,7 +19,7 @@ import DateMixin from '@/mixins/date-mixin'
   }
 })
 export default class ARDate extends DateMixin {
-    readonly nextARDate: string
+    readonly nextARDate!: string
 }
 </script>
 <style lang="stylus" scoped>

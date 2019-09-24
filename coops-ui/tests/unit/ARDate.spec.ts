@@ -1,4 +1,3 @@
-/* eslint promise/param-names: 0, prefer-promise-reject-errors: 0 */
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import Vuelidate from 'vuelidate'

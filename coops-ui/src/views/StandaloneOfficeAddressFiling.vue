@@ -39,7 +39,7 @@
 
           <!-- Registered Office Addresses -->
           <section>
-            <RegisteredOfficeAddress
+            <OfficeAddresses
               :changeButtonDisabled="false"
               :legalEntityNumber="entityIncNo"
               :addresses.sync="addresses"
@@ -117,6 +117,7 @@ import axios from '@/axios-auth'
 import RegisteredOfficeAddress from '@/components/AnnualReport/RegisteredOfficeAddress.vue'
 import { Affix } from 'vue-affix'
 import SbcFeeSummary from 'sbc-common-components/src/components/SbcFeeSummary.vue'
+import { OfficeAddresses } from '@/components/Common/'
 import { mapState, mapGetters } from 'vuex'
 import { PAYMENT_REQUIRED, BAD_REQUEST } from 'http-status-codes'
 import Certify from '@/components/AnnualReport/Certify.vue'
@@ -129,7 +130,7 @@ export default {
   name: 'StandaloneOfficeAddressFiling',
 
   components: {
-    RegisteredOfficeAddress,
+    OfficeAddresses,
     SbcFeeSummary,
     Affix,
     Certify,

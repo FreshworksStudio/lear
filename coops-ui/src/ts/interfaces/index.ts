@@ -1,1 +1,1 @@
-export * from './BCorpsIF'
+export * from './interfaces'

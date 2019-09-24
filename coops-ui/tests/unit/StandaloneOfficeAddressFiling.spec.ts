@@ -8,11 +8,11 @@ import { createLocalVue, shallowMount } from '@vue/test-utils'
 import axios from '@/axios-auth'
 import store from '@/store/store'
 import StandaloneOfficeAddressFiling from '@/views/StandaloneOfficeAddressFiling.vue'
-import RegisteredOfficeAddress from '@/components/AnnualReport/RegisteredOfficeAddress.vue'
 import Certify from '@/components/AnnualReport/Certify.vue'
 import VueRouter from 'vue-router'
 import mockRouter from './mockRouter'
 import { BAD_REQUEST } from 'http-status-codes'
+import { OfficeAddresses } from '@/components/Common/'
 
 Vue.use(Vuetify)
 Vue.use(Vuelidate)
@@ -47,7 +47,7 @@ describe('Standalone Office Address Filing - Part 1 - UI', () => {
     const $route = { params: { id: 0 } } // new filing id
     const wrapper = shallowMount(StandaloneOfficeAddressFiling, { store, mocks: { $route } })
 
-    expect(wrapper.find(RegisteredOfficeAddress).exists()).toBe(true)
+    expect(wrapper.find(OfficeAddresses).exists()).toBe(true)
     expect(wrapper.find(Certify).exists()).toBe(true)
 
     wrapper.destroy()

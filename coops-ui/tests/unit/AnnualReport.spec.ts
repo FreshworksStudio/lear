@@ -15,7 +15,7 @@ import RegisteredOfficeAddress from '@/components/AnnualReport/RegisteredOfficeA
 import Directors from '@/components/AnnualReport/Directors.vue'
 import Certify from '@/components/AnnualReport/Certify.vue'
 import { BAD_REQUEST } from 'http-status-codes'
-import { EntityTypes } from '@/ts/enums'
+import { EntityTypes } from '@/enums'
 import ARDate from '@/components/AnnualReport/BCorp/ARDate.vue'
 
 Vue.use(Vuetify)

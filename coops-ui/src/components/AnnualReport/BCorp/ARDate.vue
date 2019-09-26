@@ -7,7 +7,8 @@
         <span class="date file-date">Today ({{this.toReadableDate(new Date())}})</span>
       </div>
   </v-card>
-</template>w
+</template>
+
 <script lang="ts">
 import { Component } from 'vue-property-decorator'
 import { mapState } from 'vuex'
@@ -19,7 +20,7 @@ import DateMixin from '@/mixins/date-mixin'
   }
 })
 export default class ARDate extends DateMixin {
-    readonly nextARDate: string
+    readonly nextARDate!: string
 }
 </script>
 <style lang="stylus" scoped>
@@ -36,6 +37,5 @@ export default class ARDate extends DateMixin {
         font-weight: 500
 
       .date
-        font-family: "BC Sans"
         margin-right: 4.5rem
 </style>

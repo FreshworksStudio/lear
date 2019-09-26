@@ -193,7 +193,7 @@ import ResumeErrorDialog from '@/components/AnnualReport/ResumeErrorDialog.vue'
 import SaveErrorDialog from '@/components/AnnualReport/SaveErrorDialog.vue'
 import DateMixin from '@/mixins/date-mixin'
 import EntityFilterMixin from '@/mixins/entityFilter-mixin'
-import { EntityTypes } from '@/ts/enums'
+import { EntityTypes } from '@/enums'
 import ARDate from '@/components/AnnualReport/BCorp/ARDate.vue'
 
 export default {
@@ -252,7 +252,7 @@ export default {
       saveErrors: [],
       saveWarnings: [],
 
-      // Constant properties
+      // EntityTypes Enum
       EntityTypes
     }
   },

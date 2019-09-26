@@ -44,7 +44,7 @@ import AccountAuthorizationDialog from '@/components/Dashboard/AccountAuthorizat
 import SbcHeader from 'sbc-common-components/src/components/SbcHeader.vue'
 import SbcFooter from 'sbc-common-components/src/components/SbcFooter.vue'
 import EntityInfo from '@/components/EntityInfo.vue'
-import { EntityTypes } from '@/ts/enums'
+import { EntityTypes } from '@/enums'
 
 export default {
   name: 'App',
@@ -228,8 +228,7 @@ export default {
     storeEntityInfo (response) {
       if (response && response.data && response.data.business) {
         this.setEntityName(response.data.business.legalName)
-        // TODO: Replace placeholder with `response.data.business.legalType` when legalTypes are seeded.
-        this.setEntityType(EntityTypes.BCorp)
+        this.setEntityType(response.data.business.legalType)
         this.setNextARDate(response.data.business.nextAnnualReport)
         this.setEntityStatus(response.data.business.status)
         this.setEntityBusinessNo(response.data.business.taxId)

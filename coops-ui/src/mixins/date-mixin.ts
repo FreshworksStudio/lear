@@ -59,7 +59,14 @@ export default class DateMixin extends Vue {
    * @returns The re-formatted date string without the day name.
    */
   toReadableDate (date: string): string {
+    // Cast to a workable dateString
+    // Split into an array.
+    let formatDate = (new Date(date).toDateString()).split(' ')
+
+    // Remove the 'weekday' from the array
+    // Join the array
+    // Add a comma to the date output.
     const regex = / (?!.* )/
-    return (new Date(date).toDateString().split(' ').slice(1).join(' ').replace(regex, ', '))
+    return formatDate.slice(1).join(' ').replace(regex, ', ')
   }
 }

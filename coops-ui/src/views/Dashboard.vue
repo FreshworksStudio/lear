@@ -34,7 +34,16 @@
                 </v-btn>
               </header>
               <v-card flat>
-                <address-list-sm></address-list-sm>
+                <v-expansion-panel
+                :expand="true"
+                :value=0>
+                  <v-expansion-panel-content>
+                    <div slot="header">Registered Office</div>
+                    <v-card>
+                      <address-list-sm></address-list-sm>
+                    </v-card>
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
               </v-card>
             </section>
 

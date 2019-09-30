@@ -8,39 +8,41 @@
           </v-avatar>
           <div class="list-item__title">{{ director.officer.firstName }} {{ director.officer.lastName }}</div>
         </div>
-        <li class="list-item" >
-          <div class="director-info">
-            <div class="address-title">Delivery Address</div>
-            <div class="list-item__subtitle">
-              <ul class="address-details">
-                <li>{{ director.deliveryAddress.streetAddress }}</li>
-                <li>{{ director.deliveryAddress.addressCity }} {{ director.deliveryAddress.addressRegion }}
-                  &nbsp;&nbsp;{{ director.postalCode}}</li>
-                <li>{{ director.deliveryAddress.addressCountry }}</li>
-              </ul>
+        <ul class="list">
+          <li class="list-item" >
+            <div class="director-info">
+              <div class="address-title">Delivery Address</div>
+              <div class="list-item__subtitle">
+                <ul class="address-details">
+                  <li>{{ director.deliveryAddress.streetAddress }}</li>
+                  <li>{{ director.deliveryAddress.addressCity }} {{ director.deliveryAddress.addressRegion }}
+                    &nbsp;&nbsp;{{ director.postalCode}}</li>
+                  <li>{{ director.deliveryAddress.addressCountry }}</li>
+                </ul>
+              </div>
             </div>
-          </div>
-        </li>
-        <li class="list-item" v-if="entityFilter(EntityTypes.BCorp)">
-          <div class="director-info">
-            <div class="address-title">Mailing Address</div>
-            <div class="list-item__subtitle">
-              <ul class="address-details">
-                <li>{{ director.deliveryAddress.streetAddress }}</li>
-                <li>{{ director.deliveryAddress.addressCity }} {{ director.deliveryAddress.addressRegion }}
-                  &nbsp;&nbsp;{{ director.postalCode}}</li>
-                <li>{{ director.deliveryAddress.addressCountry }}</li>
-              </ul>
+          </li>
+          <li class="list-item" v-if="entityFilter(EntityTypes.BCorp)">
+            <div class="director-info">
+              <div class="address-title">Mailing Address</div>
+              <div class="list-item__subtitle">
+                <ul class="address-details">
+                  <li>{{ director.deliveryAddress.streetAddress }}</li>
+                  <li>{{ director.deliveryAddress.addressCity }} {{ director.deliveryAddress.addressRegion }}
+                    &nbsp;&nbsp;{{ director.postalCode}}</li>
+                  <li>{{ director.deliveryAddress.addressCountry }}</li>
+                </ul>
+              </div>
             </div>
-          </div>
-        </li>
+          </li>
+        </ul>
       </v-expansion-panel-content>
     </v-expansion-panel>
   </ul>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import { mapState } from 'vuex'
 import EntityFilter from '@/mixins/entityFilter-mixin'
@@ -64,6 +66,9 @@ export default class DirectorListSm extends mixins(EntityFilter) {
   .header
     display: flex
 
+  .list
+    padding-left .2rem
+
   .list-item
     flex-direction row
     background #ffffff
@@ -77,6 +82,7 @@ export default class DirectorListSm extends mixins(EntityFilter) {
     font-weight: 500
 
   .address-title
+    font-weight: 500;
     margin-left 1.5rem
 
   .address-details

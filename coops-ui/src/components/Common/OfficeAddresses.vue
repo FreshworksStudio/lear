@@ -8,11 +8,19 @@
       <ul class="list address-list" v-bind:class="{ 'show-address-form' : showAddressForm }">
 
         <!-- REGISTERED OFFICE -->
+        <div class="edit-header" v-if="showAddressForm">
+          <span class="office-title">Registered Office</span>
+        </div>
         <li class="container">
+
           <div class="meta-container">
-            <label>Registered Office</label>
+            <label class="edit-sub-header" v-if="!showAddressForm">Registered Office</label>
+            <div class="sub-container" v-else>
+              <label class="edit-sub-header">Delivery Address</label>
+              <label class="edit-sub-header" v-if="!inheritDeliveryAddress">Mailing Address</label>
+            </div>
             <div class="meta-container__inner">
-              <label>Delivery Address</label>
+              <label v-if="!showAddressForm">Delivery Address</label>
 
               <delivery-address
                 :address="deliveryAddress"
@@ -21,7 +29,6 @@
                 @valid="isDeliveryValid"
               ></delivery-address>
 
-              <br />
               <div v-if="!inheritDeliveryAddress">
                 <div class="form__row">
                   <v-checkbox
@@ -31,8 +38,7 @@
                     v-model="inheritDeliveryAddress"
                   ></v-checkbox>
                 </div>
-                <label>Mailing Address</label>
-
+                <label v-if="!showAddressForm">Mailing Address</label>
                 <mailing-address
                   v-if="!showAddressForm || !inheritDeliveryAddress"
                   :address="mailingAddress"
@@ -42,7 +48,7 @@
                 ></mailing-address>
 
               </div>
-              <div v-else>
+              <div class="same-address-tag" v-else>
                 <span>Mailing Address same as above</span>
               </div>
               <v-expand-transition>
@@ -75,12 +81,19 @@
           </div>
         </li>
 
-        <!-- RECORDS OFFICE -->
+         <!-- Record Office -->
+        <div class="edit-header" v-if="showAddressForm">
+          <span class="office-title">Record Office</span>
+        </div>
         <li class="container" v-if="entityFilter(EntityTypes.BCorp)">
           <div class="meta-container">
-            <label>Record Office</label>
+            <label class="edit-sub-header" v-if="!showAddressForm">Record Office</label>
+            <div class="sub-container" v-else>
+              <label class="edit-sub-header">Delivery Address</label>
+              <label class="edit-sub-header" v-if="!inheritDeliveryAddress">Mailing Address</label>
+            </div>
             <div class="meta-container__inner">
-              <label>Delivery Address</label>
+              <label v-if="!showAddressForm">Delivery Address</label>
 
               <delivery-address
                 :address="deliveryAddress"
@@ -89,7 +102,6 @@
                 @valid="isDeliveryValid"
               ></delivery-address>
 
-              <br />
               <div v-if="!inheritDeliveryAddress">
                 <div class="form__row">
                   <v-checkbox
@@ -99,8 +111,7 @@
                     v-model="inheritDeliveryAddress"
                   ></v-checkbox>
                 </div>
-                <label>Mailing Address</label>
-
+                <label v-if="!showAddressForm">Mailing Address</label>
                 <mailing-address
                   v-if="!showAddressForm || !inheritDeliveryAddress"
                   :address="mailingAddress"
@@ -110,24 +121,23 @@
                 ></mailing-address>
 
               </div>
-              <div v-else>
+              <div class="same-address-tag" v-else>
                 <span>Mailing Address same as above</span>
               </div>
-
-              <div
-                class="form__row form__btns"
-                v-show="showAddressForm"
-              >
-                <v-btn
-                  class="update-btn"
-                  color="primary"
-                  id="reg-off-update-addr-btn"
-                  :disabled="!formValid"
-                  @click="updateAddress"
-                >Update Addresses</v-btn>
-                <v-btn id="reg-off-cancel-addr-btn" @click="cancelEditAddress">Cancel</v-btn>
-              </div>
             </div>
+          </div>
+          <div
+            class="form__row"
+            v-show="showAddressForm"
+          >
+            <v-btn id="reg-off-cancel-addr-btn" @click="cancelEditAddress">Cancel</v-btn>
+            <v-btn
+              class="update-btn"
+              color="primary"
+              id="reg-off-update-addr-btn"
+              :disabled="!formValid"
+              @click="updateAddress"
+            >Update Addresses</v-btn>
           </div>
         </li>
       </ul>
@@ -488,101 +498,124 @@ export default class OfficeAddresses extends mixins(DateMixin, EntityFilterMixin
 
   section p
     // font-size 0.875rem
-    color: $gray6
+    color $gray6
 
   section + section
-    margin-top: 3rem
+    margin-top 3rem
 
   h2
-    margin-bottom: 0.25rem
+    margin-bottom 0.25rem
 
-  .v-btn
-    margin: 0
-    min-width: 6rem
-    text-transform: none
-
-  .reset-btn
-    margin-top: 0.5rem
-
-  .meta-container
-    display: flex
-    flex-flow: column nowrap
-    position: relative
-
-    .meta-container__inner
-      margin-top: 0.5rem
+  ul
+    margin 0
+    padding 0
+    list-style-type none
 
   label
-    font-weight: 700
-    margin-top: 0.5rem
+    font-weight 700
+    margin-top 0.5rem
 
   &__inner
-    flex: 1 1 auto
+    flex 1 1 auto
+
+  .edit-header
+    flex 1 1 100%
+    margin auto
+    padding 1.5rem 2.2rem
+    height 4rem
+    background-color rgba(1,51,102,0.15)
+
+    .office-title
+      color #000014
+      font-size 1rem
+      font-weight bold
+      line-height 22px
+
+  .v-btn
+    margin 0
+    min-width 6rem
+    text-transform none
+
+  .reset-btn
+    margin-top 0.5rem
+
+  .meta-container
+    display flex
+    flex-flow column wrap
+    position relative
+
+    .sub-container
+      display flex
+      flex-flow wrap
+      width 12rem
+      padding .5rem
+
+    .meta-container__inner
+      margin-top .5rem
+
+    .edit-sub-header
+      padding 0rem .5rem
+      font-size 1rem
+      font-weight 500
 
   @media (min-width: 768px)
     .meta-container
-      flex-flow: row nowrap
+      flex-flow row nowrap
 
-      label:first-child
-        flex: 0 0 auto
-        padding-right: 4rem
-        width: 12rem
+      label
+        flex 0 0 auto
+        width 12rem
 
     .meta-container__inner
-      margin-top: 0.5rem
+      margin-top 0.5rem
 
   .address-list .form
-    margin-top: 1rem;
+    margin-top 1rem
 
   @media (min-width: 768px)
     .address-list .form
-      margin-top: 0;
+      margin-top 0
 
   // Address Block Layout
   .address-block__actions
-    position: absolute;
-    top: 0;
-    right: 0;
+    position absolute
+    top 0
+    right 0
 
     .v-btn
-      min-width: 4rem;
+      min-width 4rem
 
     .v-btn + .v-btn
-      margin-left: 0.5rem;
+      margin-left 0.5rem
 
   // Form Row Elements
-  .form__row + .form__row
-    margin-top: 0.25rem;
-
-  .form__btns
-    align-items: right
+  .form__row
+    margin-top 1rem
+    display flex
+    justify-content flex-end
 
     .v-btn
-      margin: 0;
+      margin 0
 
       + .v-btn
-        margin-left: 0.5rem;
+        margin-left 0.5rem
 
   .form__row.three-column
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: stretch;
-    margin-right: -0.5rem;
-    margin-left: -0.5rem;
+    display flex
+    flex-flow row nowrap
+    align-items stretch
+    margin-right -0.5rem
+    margin-left -0.5rem
 
   .inherit-checkbox
-    margin-top: -3px;
-    margin-left: -3px;
-    padding: 0;
+    margin-top 2rem
 
   // Registered Office Address Form Behavior
   .show-address-form
     li:first-child
-      padding-bottom: 0;
+      padding-bottom 0
 
-  ul
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
+  .same-address-tag
+    padding-top .5rem
 
 </style>

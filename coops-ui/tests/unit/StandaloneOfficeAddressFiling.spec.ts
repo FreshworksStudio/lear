@@ -1,4 +1,3 @@
-/* eslint promise/param-names: 0, prefer-promise-reject-errors: 0 */
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import Vuelidate from 'vuelidate'
@@ -8,7 +7,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils'
 import axios from '@/axios-auth'
 import store from '@/store/store'
 import StandaloneOfficeAddressFiling from '@/views/StandaloneOfficeAddressFiling.vue'
-import RegisteredOfficeAddress from '@/components/AnnualReport/RegisteredOfficeAddress.vue'
+import { OfficeAddresses } from '@/components/Common'
 import Certify from '@/components/AnnualReport/Certify.vue'
 import VueRouter from 'vue-router'
 import mockRouter from './mockRouter'
@@ -47,7 +46,7 @@ describe('Standalone Office Address Filing - Part 1 - UI', () => {
     const $route = { params: { id: 0 } } // new filing id
     const wrapper = shallowMount(StandaloneOfficeAddressFiling, { store, mocks: { $route } })
 
-    expect(wrapper.find(RegisteredOfficeAddress).exists()).toBe(true)
+    expect(wrapper.find(OfficeAddresses).exists()).toBe(true)
     expect(wrapper.find(Certify).exists()).toBe(true)
 
     wrapper.destroy()

@@ -39,7 +39,7 @@
 
           <!-- Registered Office Addresses -->
           <section>
-            <RegisteredOfficeAddress
+            <OfficeAddresses
               :changeButtonDisabled="false"
               :legalEntityNumber="entityIncNo"
               :addresses.sync="addresses"
@@ -124,12 +124,13 @@ import ConfirmDialog from '@/components/ConfirmDialog.vue'
 import PaymentErrorDialog from '@/components/AnnualReport/PaymentErrorDialog.vue'
 import ResumeErrorDialog from '@/components/AnnualReport/ResumeErrorDialog.vue'
 import SaveErrorDialog from '@/components/AnnualReport/SaveErrorDialog.vue'
+import { OfficeAddresses } from '@/components/Common'
 
 export default {
   name: 'StandaloneOfficeAddressFiling',
 
   components: {
-    RegisteredOfficeAddress,
+    OfficeAddresses,
     SbcFeeSummary,
     Affix,
     Certify,

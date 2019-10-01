@@ -49,7 +49,7 @@ describe('AddressListSm as a COOP', () => {
     expect(vm.deliveryAddress).toBeNull()
     expect(vm.$el.querySelectorAll('.list-item').length).toEqual(1)
     expect(vm.$el.querySelector('.office-header').textContent).toBe('Registered Office')
-    expect(vm.$el.querySelector('.list-item__title').textContent).toBe('Mailing Address')
+    expect(vm.$el.querySelector('.list-item__title').textContent).toBe('Mailing')
     expect(vm.$el.querySelector('.address-details').textContent).toContain('1012 Douglas St')
 
     wrapper.destroy()
@@ -76,7 +76,7 @@ describe('AddressListSm as a COOP', () => {
     expect(vm.deliveryAddress).not.toBeNull()
     expect(vm.$el.querySelectorAll('.list-item').length).toEqual(1)
     expect(vm.$el.querySelector('.office-header').textContent).toBe('Registered Office')
-    expect(vm.$el.querySelector('.list-item__title').textContent).toBe('Delivery Address')
+    expect(vm.$el.querySelector('.list-item__title').textContent).toBe('Delivery')
     expect(vm.$el.querySelector('.address-details').textContent).toContain('220 Buchanan St')
 
     wrapper.destroy()
@@ -109,8 +109,8 @@ describe('AddressListSm as a COOP', () => {
     expect(vm.mailingAddress).not.toBeNull()
     expect(vm.$el.querySelectorAll('.list-item').length).toEqual(2)
     expect(vm.$el.querySelector('.office-header').textContent).toBe('Registered Office')
-    expect(vm.$el.querySelector('.list-item .list-item__title').textContent).toContain('Delivery Address')
-    expect(vm.$el.querySelector('.list-item:nth-child(2) .list-item__title').textContent).toContain('Mailing Address')
+    expect(vm.$el.querySelector('.list-item .list-item__title').textContent).toContain('Delivery')
+    expect(vm.$el.querySelector('.list-item:nth-child(2) .list-item__title').textContent).toContain('Mailing')
     expect(vm.$el.querySelector('li .address-details').textContent).toContain('220 Buchanan St')
     expect(vm.$el.querySelector('li:nth-child(2) .address-details').textContent).toContain('2909 Burrard St')
 
@@ -158,7 +158,7 @@ describe('AddressListSm as a BCORP', () => {
     expect(vm.deliveryAddress).toBeNull()
     expect(vm.$el.querySelectorAll('.list-item').length).toEqual(2)
     expect(vm.$el.querySelector('.office-header').textContent).toBe('Registered Office')
-    expect(vm.$el.querySelector('.list-item__title').textContent).toBe('Mailing Address')
+    expect(vm.$el.querySelector('.list-item__title').textContent).toBe('Mailing')
     expect(vm.$el.querySelector('.address-details').textContent).toContain('1012 Douglas St')
 
     wrapper.destroy()
@@ -185,7 +185,7 @@ describe('AddressListSm as a BCORP', () => {
     expect(vm.deliveryAddress).not.toBeNull()
     expect(vm.$el.querySelectorAll('.list-item').length).toEqual(2)
     expect(vm.$el.querySelector('.office-header').textContent).toBe('Registered Office')
-    expect(vm.$el.querySelector('.list-item__title').textContent).toBe('Delivery Address')
+    expect(vm.$el.querySelector('.list-item__title').textContent).toBe('Delivery')
     expect(vm.$el.querySelector('.address-details').textContent).toContain('220 Buchanan St')
 
     wrapper.destroy()
@@ -218,8 +218,8 @@ describe('AddressListSm as a BCORP', () => {
     expect(vm.mailingAddress).not.toBeNull()
     expect(vm.$el.querySelectorAll('.list-item').length).toEqual(4)
     expect(vm.$el.querySelector('.office-header').textContent).toBe('Registered Office')
-    expect(vm.$el.querySelector('.list-item .list-item__title').textContent).toContain('Delivery Address')
-    expect(vm.$el.querySelector('.list-item:nth-child(2) .list-item__title').textContent).toContain('Mailing Address')
+    expect(vm.$el.querySelector('.list-item .list-item__title').textContent).toContain('Delivery')
+    expect(vm.$el.querySelector('.list-item:nth-child(2) .list-item__title').textContent).toContain('Mailing')
     expect(vm.$el.querySelector('li .address-details').textContent).toContain('220 Buchanan St')
     expect(vm.$el.querySelector('li:nth-child(2) .address-details').textContent).toContain('2909 Burrard St')
 

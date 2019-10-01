@@ -11,7 +11,7 @@
               <v-icon color="primary">local_shipping</v-icon>
             </v-avatar>
             <div class="address">
-              <div class="list-item__title">Delivery Address</div>
+              <div class="list-item__title">Delivery</div>
               <div class="list-item__subtitle">
                 <ul class="address-details">
                   <li>{{ deliveryAddress.streetAddress }}</li>
@@ -29,7 +29,7 @@
               <v-icon color="primary">mail_outline</v-icon>
             </v-avatar>
             <div class="address">
-              <div class="list-item__title">Mailing Address</div>
+              <div class="list-item__title">Mailing</div>
               <div class="list-item__subtitle">
                 <ul class="address-details">
                   <li>{{ mailingAddress.streetAddress }}</li>
@@ -54,7 +54,7 @@
               <v-icon color="primary">local_shipping</v-icon>
             </v-avatar>
             <div class="address">
-              <div class="list-item__title">Delivery Address</div>
+              <div class="list-item__title">Delivery</div>
               <div class="list-item__subtitle">
                 <ul class="address-details">
                   <li>{{ deliveryAddress.streetAddress }}</li>
@@ -72,7 +72,7 @@
               <v-icon color="primary">mail_outline</v-icon>
             </v-avatar>
             <div class="address">
-              <div class="list-item__title">Mailing Address</div>
+              <div class="list-item__title">Mailing</div>
               <div class="list-item__subtitle">
                 <ul class="address-details">
                   <li>{{ mailingAddress.streetAddress }}</li>
@@ -133,7 +133,7 @@ export default class AddressListSm extends mixins(EntityFilter) {
     flex-direction row
     align-items flex-start
     border-top none
-    padding-left 0
+    padding: .325rem 0rem;
 
   .list-item__title
     font-weight: 500

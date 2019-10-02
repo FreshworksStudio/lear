@@ -290,11 +290,11 @@ export default {
     storeDirectors (response) {
       if (response && response.data && response.data.directors) {
         const directors = response.data.directors
-        for (var i = 0; i < directors.length; i++) {
-          directors[i].id = i + 1
-          directors[i].isNew = false
-          directors[i].isDirectorActive = true
-        }
+        directors.forEach((director, index) => {
+          director.id = index + 1
+          director.isNew = false
+          director.isDirectorActive = true
+        })
         this.setDirectors(directors)
       } else {
         throw new Error('invalid directors')

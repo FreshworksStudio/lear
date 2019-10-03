@@ -1,3 +1,4 @@
+import {EntityTypes} from '@/enums';
 <template>
   <div id="directors">
 
@@ -42,7 +43,7 @@
         <ul class="list new-director" v-show="showNewDirectorForm">
           <li class="container">
             <div class="meta-container">
-              <label>Appoint New Director</label>
+              <label class="appoint-header">Appoint New Director</label>
               <div class="meta-container__inner">
                 <v-form ref="newDirectorForm" v-on:submit.prevent="addNewDirector" v-model="directorFormValid"
                         lazy-validation>
@@ -149,6 +150,12 @@
 
       <!-- Current Director List -->
       <ul class="list director-list">
+        <v-subheader v-if="this.directors.length" class="director-header">
+          <span>Names</span>
+          <span>Delivery Address</span>
+          <span v-if="entityFilter(EntityTypes.BCorp)">Mailing Address</span>
+          <span>Appointed/Elected</span>
+        </v-subheader>
         <li class="container"
           :id="'director-' + director.id"
           v-bind:class="{ 'remove' : !isActive(director) || !isActionable(director)}"
@@ -183,6 +190,9 @@
               <v-expand-transition>
                 <div class="director-info" v-show="activeIndex !== index">
                   <div class="address">
+                    <BaseAddress v-bind:address="director.deliveryAddress" />
+                  </div>
+                  <div class="address" v-if="entityFilter(EntityTypes.BCorp)">
                     <BaseAddress v-bind:address="director.deliveryAddress" />
                   </div>
                   <div class="director_dates">

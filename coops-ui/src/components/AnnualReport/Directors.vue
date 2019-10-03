@@ -1,3 +1,4 @@
+import {EntityTypes} from '@/enums';
 <template>
   <div id="directors">
 
@@ -42,7 +43,7 @@
         <ul class="list new-director" v-show="showNewDirectorForm">
           <li class="container">
             <div class="meta-container">
-              <label>Appoint New Director</label>
+              <label class="appoint-header">Appoint New Director</label>
               <div class="meta-container__inner">
                 <v-form ref="newDirectorForm" v-on:submit.prevent="addNewDirector" v-model="directorFormValid"
                         lazy-validation>
@@ -59,12 +60,22 @@
                       :rules="directorLastNameRules"
                       required></v-text-field>
                   </div>
-
-                  <BaseAddress ref="baseAddressNew"
-                    v-bind:address="director.deliveryAddress"
-                    v-bind:editing="true"
-                    @update:address="baseAddressWatcher"
-                  />
+                  <label class="address-sub-header">Delivery Address</label>
+                  <div class="address-wrapper">
+                    <BaseAddress ref="baseAddressNew"
+                      v-bind:address="director.deliveryAddress"
+                      v-bind:editing="true"
+                      @update:address="baseAddressWatcher"
+                    />
+                    <div class="form__row">
+                      <v-checkbox
+                        class="inherit-checkbox"
+                        label="Same as Delivery Address"
+                        v-model="inheritDeliveryAddress"
+                      ></v-checkbox>
+                    </div>
+                    <label class="address-sub-header">Mailing Address</label>
+                  </div>
 
                   <!-- removed until release 2 -->
                   <!--
@@ -139,6 +150,12 @@
 
       <!-- Current Director List -->
       <ul class="list director-list">
+        <v-subheader v-if="this.directors.length" class="director-header">
+          <span>Names</span>
+          <span>Delivery Address</span>
+          <span v-if="entityFilter(EntityTypes.BCorp)">Mailing Address</span>
+          <span>Appointed/Elected</span>
+        </v-subheader>
         <li class="container"
           :id="'director-' + director.id"
           v-bind:class="{ 'remove' : !isActive(director) || !isActionable(director)}"
@@ -175,8 +192,10 @@
                   <div class="address">
                     <BaseAddress v-bind:address="director.deliveryAddress" />
                   </div>
+                  <div class="address" v-if="entityFilter(EntityTypes.BCorp)">
+                    <BaseAddress v-bind:address="director.deliveryAddress" />
+                  </div>
                   <div class="director_dates">
-                    <div>Appointed/Elected</div>
                     <div class="director_dates__date">{{ director.appointmentDate }}</div>
                     <div v-if="director.cessationDate">Ceased</div>
                     <div class="director_dates__date">{{ director.cessationDate }}</div>
@@ -377,15 +396,16 @@
 </template>
 
 <script lang="ts">
-
-import { Component, Mixins, Vue, Prop, Watch, Emit } from 'vue-property-decorator'
+import { Component, Emit, Mixins, Prop, Vue, Watch } from 'vue-property-decorator'
 import axios from '@/axios-auth'
-import { mapState, mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 // NB: .vue extension is required when importing SFC
 // ref: https://github.com/vuejs/vetur/issues/423#issuecomment-340235722
 import BaseAddress from 'sbc-common-components/src/components/BaseAddress.vue'
 import DateMixin from '@/mixins/date-mixin'
 import ExternalMixin from '@/mixins/external-mixin'
+import EntityFilter from '@/mixins/entityFilter-mixin'
+import { EntityTypes } from '@/enums'
 
 // action constants
 const APPOINTED = 'appointed'
@@ -406,14 +426,13 @@ interface BaseAddressType extends Vue {
   components: {
     BaseAddress
   },
-  mixins: [DateMixin, ExternalMixin],
   computed: {
     // Property definitions for runtime environment.
     ...mapState(['entityIncNo', 'lastPreLoadFilingDate', 'currentDate', 'currentFilingStatus']),
     ...mapGetters(['lastCODFilingDate'])
   }
 })
-export default class Directors extends Mixins(DateMixin, ExternalMixin) {
+export default class Directors extends Mixins(DateMixin, EntityFilter, ExternalMixin) {
   // To fix "property X does not exist on type Y" errors, annotate types for referenced components.
   // ref: https://github.com/vuejs/vetur/issues/1414
   $refs!: {
@@ -470,6 +489,12 @@ export default class Directors extends Mixins(DateMixin, ExternalMixin) {
     showDates: true
   }
   private directorFormValid = true // used for New and Edit forms
+
+  // State of the form checkbox for determining whether or not the mailing address is the same as the delivery address.
+  private inheritDeliveryAddress: boolean = true
+
+  // EntityTypes Enum
+  private EntityTypes: {} = EntityTypes
 
   /**
    * Computed value.
@@ -689,7 +714,7 @@ export default class Directors extends Mixins(DateMixin, ExternalMixin) {
   }
 
   /**
-   * Function called internall and externally to fetch the list of directors.
+   * Function called internally and externally to fetch the list of directors.
    * TODO: change this to a prop?
    */
   public getDirectors (): void {
@@ -1171,6 +1196,19 @@ export default class Directors extends Mixins(DateMixin, ExternalMixin) {
       .v-btn + .v-btn
         margin-left 0.5rem
 
+  .appoint-header
+    font-size 1rem
+    font-weight bold
+    line-height 1.5rem
+
+  .address-sub-header
+    padding-bottom 0rem
+    font-size .85rem
+    line-height 1.5rem
+
+  .address-wrapper
+    margin-top: 1.5rem
+
   @media (min-width 768px)
     .meta-container
       flex-flow row nowrap
@@ -1201,7 +1239,7 @@ export default class Directors extends Mixins(DateMixin, ExternalMixin) {
   .address
     display flex
     flex-direction column
-    width 10rem
+    width 12rem
 
   .address__row
     flex 1 1 auto
@@ -1248,10 +1286,6 @@ export default class Directors extends Mixins(DateMixin, ExternalMixin) {
 
   .director_dates
     font-size 0.8rem
-    margin-left 100px
-
-    .director_dates__date
-      margin-left 20px
 
   .actions .v-btn.actions__more-actions__btn
     min-width 25px
@@ -1266,6 +1300,22 @@ export default class Directors extends Mixins(DateMixin, ExternalMixin) {
     right 0
     position absolute
     z-index 99
+
+  .director-header
+    padding 1.25rem
+    display flex
+    justify-content flex-start
+    height 3rem
+    width 100%
+    background-color rgba(77,112,147,0.15)
+
+    span
+      width 12rem
+      color #000014
+      font-size 0.875rem
+      font-weight 600
+      line-height 1.1875rem
+
 </style>
 
 <!-- TODO: WHERE DOES THIS BELONG?

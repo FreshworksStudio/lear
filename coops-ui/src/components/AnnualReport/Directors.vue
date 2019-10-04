@@ -67,15 +67,24 @@ import {EntityTypes} from '@/enums';
                       v-bind:editing="true"
                       @update:address="baseAddressWatcher"
                     />
-                    <div class="form__row">
+                  </div>
+                    <div class="form__row" v-if="entityFilter(EntityTypes.BCorp)">
                       <v-checkbox
                         class="inherit-checkbox"
-                        label="Same as Delivery Address"
+                        label="Mailing Address same as Delivery Address"
                         v-model="inheritDeliveryAddress"
                       ></v-checkbox>
+                      <div v-if="entityFilter(EntityTypes.BCorp) && !inheritDeliveryAddress">
+                        <label class="address-sub-header">Mailing Address</label>
+                        <div class="address-wrapper">
+                          <BaseAddress
+                            v-bind:address="director.deliveryAddress"
+                            v-bind:editing="true"
+                            @update:address="baseAddressWatcher"
+                          />
+                        </div>
+                      </div>
                     </div>
-                    <label class="address-sub-header">Mailing Address</label>
-                  </div>
 
                   <!-- removed until release 2 -->
                   <!--
@@ -148,9 +157,9 @@ import {EntityTypes} from '@/enums';
         </ul>
       </v-expand-transition>
 
-      <!-- Current Director List -->
+      <!------ Current Director List -------->
       <ul class="list director-list">
-        <v-subheader v-if="this.directors.length" class="director-header">
+        <v-subheader v-if="this.directors.length && !editInProgress" class="director-header">
           <span>Names</span>
           <span>Delivery Address</span>
           <span v-if="entityFilter(EntityTypes.BCorp)">Mailing Address</span>
@@ -312,6 +321,24 @@ import {EntityTypes} from '@/enums';
                     @update:address="baseAddressWatcher"
                   />
 
+                  <div class="form__row" v-if="entityFilter(EntityTypes.BCorp)">
+                    <v-checkbox
+                      class="inherit-checkbox"
+                      label="Mailing Address same as Delivery Address"
+                      v-model="inheritDeliveryAddress"
+                    ></v-checkbox>
+                    <div v-if="entityFilter(EntityTypes.BCorp) && !inheritDeliveryAddress">
+                      <label class="address-sub-header">Mailing Address</label>
+                      <div class="address-wrapper">
+                        <BaseAddress
+                          v-bind:address="director.deliveryAddress"
+                          v-bind:editing="true"
+                          @update:address="baseAddressWatcher"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
                   <!-- removed until release 2 -->
                   <!--
                   <div class="form__row three-column edit-director__dates" v-show="editFormShowHide.showDates">
@@ -467,6 +494,7 @@ export default class Directors extends Mixins(DateMixin, EntityFilter, ExternalM
   private activeDirectorToDelete = null
   private cessationDateTemp = null
   private isEditingDirector = false
+  private editInProgress: boolean = false
   private director = {
     id: '',
     officer: { firstName: '', lastName: '', middleInitial: '' },
@@ -799,6 +827,7 @@ export default class Directors extends Mixins(DateMixin, EntityFilter, ExternalM
     this.directors = newList
 
     this.activeIndex = null
+    this.editInProgress = false
     this.showPopup = false
     this.activeDirectorToDelete = null
   }
@@ -880,7 +909,7 @@ export default class Directors extends Mixins(DateMixin, EntityFilter, ExternalM
   private editDirector (index): void {
     // clear in-progress director data from form in BaseAddress component - ie: start fresh
     this.inProgressAddress = {}
-
+    this.editInProgress = true
     this.activeIndex = index
     this.cancelNewDirector()
   }
@@ -975,6 +1004,7 @@ export default class Directors extends Mixins(DateMixin, EntityFilter, ExternalM
    */
   private cancelEditDirector (): void {
     this.activeIndex = -1
+    this.editInProgress = false
 
     // reset form show/hide flags
     this.editFormShowHide = {
@@ -1202,7 +1232,7 @@ export default class Directors extends Mixins(DateMixin, EntityFilter, ExternalM
     line-height 1.5rem
 
   .address-sub-header
-    padding-bottom 0rem
+    padding-bottom 1.5rem
     font-size .85rem
     line-height 1.5rem
 
@@ -1216,7 +1246,7 @@ export default class Directors extends Mixins(DateMixin, EntityFilter, ExternalM
       > label:first-child
         flex 0 0 auto
         padding-right: 2rem
-        width 12rem
+        width 14rem
 
   // List Layout
   .list
@@ -1238,8 +1268,7 @@ export default class Directors extends Mixins(DateMixin, EntityFilter, ExternalM
   // Address Block Layout
   .address
     display flex
-    flex-direction column
-    width 12rem
+    width 14rem
 
   .address__row
     flex 1 1 auto
@@ -1306,11 +1335,10 @@ export default class Directors extends Mixins(DateMixin, EntityFilter, ExternalM
     display flex
     justify-content flex-start
     height 3rem
-    width 100%
     background-color rgba(77,112,147,0.15)
 
     span
-      width 12rem
+      width 14rem
       color #000014
       font-size 0.875rem
       font-weight 600

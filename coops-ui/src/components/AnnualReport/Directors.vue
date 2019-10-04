@@ -1200,6 +1200,7 @@ export default class Directors extends Mixins(DateMixin, EntityFilter, ExternalM
     text-transform none
 
   ul
+    min-width 54rem
     margin 0
     padding 0
     list-style-type none

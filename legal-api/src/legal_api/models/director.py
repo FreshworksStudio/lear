@@ -20,7 +20,6 @@ from datetime import datetime
 from sqlalchemy import Date, cast, or_
 
 from .db import db
-from .address import Address  # noqa: F401 pylint: disable=unused-import; needed by the SQLAlchemy relationship
 
 
 class Director(db.Model):  # pylint: disable=too-many-instance-attributes
@@ -65,7 +64,7 @@ class Director(db.Model):  # pylint: disable=too-many-instance-attributes
                 del director_address['addressType']
             d['deliveryAddress'] = director_address
         if self.mailing_address:
-            director_mailing_address = self.mailing_address
+            director_mailing_address = self.mailing_address.json
             if 'addressTYpe' in director_mailing_address:
                 del director_mailing_address['addressType']
             d['mailingAddress'] = director_mailing_address

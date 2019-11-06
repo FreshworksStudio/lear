@@ -4,7 +4,12 @@ export interface BaseAddressType extends Vue {
   $refs: any
 }
 
+export interface AddressObjectIF extends Vue {
+  actions?: string[]
+}
+
 export interface AddressIF extends Vue {
+  actions?: string[],
   addressCity: string
   addressCountry: string
   addressRegion: string
@@ -17,4 +22,9 @@ export interface AddressIF extends Vue {
 export interface BaseAddressObjIF extends Vue {
   deliveryAddress: AddressIF,
   mailingAddress: AddressIF
+}
+
+export interface BcorpAddressIf extends Vue {
+  registeredOffice: BaseAddressObjIF,
+  recordsOffice: BaseAddressObjIF
 }

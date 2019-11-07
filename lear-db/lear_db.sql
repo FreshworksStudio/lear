@@ -339,7 +339,8 @@ CREATE TABLE public.filings (
     submitter_id integer,
     colin_event_id integer,
     status character varying(10),
-    payment_completion_date timestamp with time zone
+    payment_completion_date timestamp with time zone,
+    paper_only boolean
 );
 
 
@@ -3845,59 +3846,59 @@ COPY public.directors_version (id, first_name, middle_initial, last_name, title,
 -- Data for Name: filings; Type: TABLE DATA; Schema: public; Owner: userG5G
 --
 
-COPY public.filings (id, filing_date, filing_type, filing_json, payment_id, transaction_id, business_id, submitter_id, colin_event_id, status, payment_completion_date) FROM stdin;
-102	2019-08-21 03:12:41.997395+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	103	\N	\N	\N	DRAFT	\N
-103	2019-08-21 03:12:48.306417+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	104	\N	\N	\N	DRAFT	\N
-104	2019-08-21 03:12:53.93539+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	105	\N	\N	\N	DRAFT	\N
-105	2019-08-21 03:12:59.291391+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	106	\N	\N	\N	DRAFT	\N
-106	2019-08-21 03:13:05.864382+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	107	\N	\N	\N	DRAFT	\N
-107	2019-08-21 03:13:13.34061+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	108	\N	\N	\N	DRAFT	\N
-108	2019-08-21 03:13:18.470432+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	109	\N	\N	\N	DRAFT	\N
-109	2019-08-21 03:13:24.496419+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	110	\N	\N	\N	DRAFT	\N
-110	2019-08-21 03:13:30.456055+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	111	\N	\N	\N	DRAFT	\N
-111	2019-08-21 03:13:36.56987+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	112	\N	\N	\N	DRAFT	\N
-112	2019-08-21 03:13:42.074936+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	113	\N	\N	\N	DRAFT	\N
-113	2019-08-21 03:13:47.680866+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	114	\N	\N	\N	DRAFT	\N
-114	2019-08-21 03:13:53.48086+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	115	\N	\N	\N	DRAFT	\N
-115	2019-08-21 03:13:58.507975+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	116	\N	\N	\N	DRAFT	\N
-116	2019-08-21 03:14:03.692422+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	117	\N	\N	\N	DRAFT	\N
-117	2019-08-21 03:14:09.38259+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	118	\N	\N	\N	DRAFT	\N
-118	2019-08-21 03:14:15.039579+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	119	\N	\N	\N	DRAFT	\N
-119	2019-08-21 03:14:20.520595+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	120	\N	\N	\N	DRAFT	\N
-120	2019-08-21 03:14:26.064581+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	121	\N	\N	\N	DRAFT	\N
-121	2019-08-21 03:14:32.081598+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	122	\N	\N	\N	DRAFT	\N
-122	2019-08-21 03:14:37.124582+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	123	\N	\N	\N	DRAFT	\N
-123	2019-08-21 03:14:44.419866+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	124	\N	\N	\N	DRAFT	\N
-124	2019-08-21 03:14:48.838072+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	125	\N	\N	\N	DRAFT	\N
-125	2019-08-21 03:14:54.506224+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	126	\N	\N	\N	DRAFT	\N
-126	2019-08-21 03:15:00.12193+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	127	\N	\N	\N	DRAFT	\N
-127	2019-08-21 03:15:04.442929+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	128	\N	\N	\N	DRAFT	\N
-128	2019-08-21 03:15:08.670139+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	129	\N	\N	\N	DRAFT	\N
-129	2019-08-21 03:15:15.022945+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	130	\N	\N	\N	DRAFT	\N
-130	2019-08-21 03:15:20.201575+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	131	\N	\N	\N	DRAFT	\N
-131	2019-08-21 03:15:24.314919+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	132	\N	\N	\N	DRAFT	\N
-132	2019-08-21 03:15:29.86092+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	133	\N	\N	\N	DRAFT	\N
-133	2019-08-21 03:15:37.200924+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	134	\N	\N	\N	DRAFT	\N
-134	2019-08-21 03:15:41.858926+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	135	\N	\N	\N	DRAFT	\N
-135	2019-08-21 03:15:45.816919+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	136	\N	\N	\N	DRAFT	\N
-136	2019-08-21 03:15:51.516918+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	137	\N	\N	\N	DRAFT	\N
-137	2019-08-21 03:15:56.872954+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	138	\N	\N	\N	DRAFT	\N
-138	2019-08-21 03:16:01.604947+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	139	\N	\N	\N	DRAFT	\N
-139	2019-08-21 03:16:06.900954+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	140	\N	\N	\N	DRAFT	\N
-140	2019-08-21 03:16:11.621642+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	141	\N	\N	\N	DRAFT	\N
-141	2019-08-21 03:16:17.374546+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	142	\N	\N	\N	DRAFT	\N
-142	2019-08-21 03:16:23.217534+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	143	\N	\N	\N	DRAFT	\N
-143	2019-08-21 03:16:28.120665+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	144	\N	\N	\N	DRAFT	\N
-144	2019-08-21 03:16:32.550259+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	145	\N	\N	\N	DRAFT	\N
-145	2019-08-21 03:16:37.177473+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	146	\N	\N	\N	DRAFT	\N
-146	2019-08-21 03:16:41.513469+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	147	\N	\N	\N	DRAFT	\N
-147	2019-08-21 03:16:45.901478+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	148	\N	\N	\N	DRAFT	\N
-148	2019-08-21 03:16:50.640484+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	149	\N	\N	\N	DRAFT	\N
-149	2019-08-21 03:16:56.305472+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	150	\N	\N	\N	DRAFT	\N
-150	2019-08-21 16:16:09.288756+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	151	\N	\N	\N	DRAFT	\N
-151	2019-08-21 16:16:16.538741+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	152	\N	\N	\N	DRAFT	\N
-152	2019-08-21 16:16:22.054738+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	153	\N	\N	\N	DRAFT	\N
-\.
+--COPY public.filings (id, filing_date, filing_type, filing_json, payment_id, transaction_id, business_id, submitter_id, colin_event_id, status, payment_completion_date, paper_only) FROM stdin;
+--102	2019-08-21 03:12:41.997395+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	103	\N	\N	\N	DRAFT	\N \N
+--103	2019-08-21 03:12:48.306417+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	104	\N	\N	\N	DRAFT	\N \N
+--104	2019-08-21 03:12:53.93539+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	105	\N	\N	\N	DRAFT	\N \N
+--105	2019-08-21 03:12:59.291391+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	106	\N	\N	\N	DRAFT	\N \N
+--106	2019-08-21 03:13:05.864382+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	107	\N	\N	\N	DRAFT	\N \N
+--107	2019-08-21 03:13:13.34061+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	108	\N	\N	\N	DRAFT	\N \N
+--108	2019-08-21 03:13:18.470432+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	109	\N	\N	\N	DRAFT	\N \N
+--109	2019-08-21 03:13:24.496419+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	110	\N	\N	\N	DRAFT	\N \N
+--110	2019-08-21 03:13:30.456055+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	111	\N	\N	\N	DRAFT	\N \N
+--111	2019-08-21 03:13:36.56987+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	112	\N	\N	\N	DRAFT	\N \N
+--112	2019-08-21 03:13:42.074936+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	113	\N	\N	\N	DRAFT	\N \N
+--113	2019-08-21 03:13:47.680866+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	114	\N	\N	\N	DRAFT	\N \N
+--114	2019-08-21 03:13:53.48086+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	115	\N	\N	\N	DRAFT	\N \N
+--115	2019-08-21 03:13:58.507975+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	116	\N	\N	\N	DRAFT	\N \N
+--116	2019-08-21 03:14:03.692422+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	117	\N	\N	\N	DRAFT	\N \N
+--117	2019-08-21 03:14:09.38259+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	118	\N	\N	\N	DRAFT	\N \N
+--118	2019-08-21 03:14:15.039579+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	119	\N	\N	\N	DRAFT	\N \N
+--119	2019-08-21 03:14:20.520595+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	120	\N	\N	\N	DRAFT	\N \N
+--120	2019-08-21 03:14:26.064581+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	121	\N	\N	\N	DRAFT	\N \N
+--121	2019-08-21 03:14:32.081598+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	122	\N	\N	\N	DRAFT	\N \N
+--122	2019-08-21 03:14:37.124582+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	123	\N	\N	\N	DRAFT	\N \N
+--123	2019-08-21 03:14:44.419866+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	124	\N	\N	\N	DRAFT	\N \N
+--124	2019-08-21 03:14:48.838072+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	125	\N	\N	\N	DRAFT	\N \N
+--125	2019-08-21 03:14:54.506224+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	126	\N	\N	\N	DRAFT	\N \N
+--126	2019-08-21 03:15:00.12193+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	127	\N	\N	\N	DRAFT	\N \N
+--127	2019-08-21 03:15:04.442929+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	128	\N	\N	\N	DRAFT	\N \N
+--128	2019-08-21 03:15:08.670139+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	129	\N	\N	\N	DRAFT	\N \N
+--129	2019-08-21 03:15:15.022945+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	130	\N	\N	\N	DRAFT	\N \N
+--130	2019-08-21 03:15:20.201575+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	131	\N	\N	\N	DRAFT	\N \N
+--131	2019-08-21 03:15:24.314919+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	132	\N	\N	\N	DRAFT	\N \N
+--132	2019-08-21 03:15:29.86092+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	133	\N	\N	\N	DRAFT	\N \N
+--133	2019-08-21 03:15:37.200924+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	134	\N	\N	\N	DRAFT	\N \N
+--134	2019-08-21 03:15:41.858926+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	135	\N	\N	\N	DRAFT	\N \N
+--135	2019-08-21 03:15:45.816919+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	136	\N	\N	\N	DRAFT	\N \N
+--136	2019-08-21 03:15:51.516918+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	137	\N	\N	\N	DRAFT	\N \N
+--137	2019-08-21 03:15:56.872954+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	138	\N	\N	\N	DRAFT	\N \N
+--138	2019-08-21 03:16:01.604947+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	139	\N	\N	\N	DRAFT	\N \N
+--139	2019-08-21 03:16:06.900954+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	140	\N	\N	\N	DRAFT	\N \N
+--140	2019-08-21 03:16:11.621642+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	141	\N	\N	\N	DRAFT	\N \N
+--141	2019-08-21 03:16:17.374546+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	142	\N	\N	\N	DRAFT	\N \N
+--142	2019-08-21 03:16:23.217534+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	143	\N	\N	\N	DRAFT	\N \N
+--143	2019-08-21 03:16:28.120665+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	144	\N	\N	\N	DRAFT	\N \N
+--144	2019-08-21 03:16:32.550259+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	145	\N	\N	\N	DRAFT	\N \N
+--145	2019-08-21 03:16:37.177473+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	146	\N	\N	\N	DRAFT	\N \N
+--146	2019-08-21 03:16:41.513469+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	147	\N	\N	\N	DRAFT	\N \N
+--147	2019-08-21 03:16:45.901478+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	148	\N	\N	\N	DRAFT	\N \N
+--148	2019-08-21 03:16:50.640484+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	149	\N	\N	\N	DRAFT	\N \N
+--149	2019-08-21 03:16:56.305472+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	150	\N	\N	\N	DRAFT	\N \N
+--150	2019-08-21 16:16:09.288756+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	151	\N	\N	\N	DRAFT	\N \N
+--151	2019-08-21 16:16:16.538741+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	152	\N	\N	\N	DRAFT	\N \N
+--152	2019-08-21 16:16:22.054738+00	lear_epoch	{"filing": {"header": {"name": "lear_epoch"}}}	\N	153	\N	\N	\N	DRAFT	\N \N
+--\.
 
 
 --

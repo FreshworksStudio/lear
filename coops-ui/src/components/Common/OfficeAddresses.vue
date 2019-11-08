@@ -242,10 +242,15 @@ export default class OfficeAddresses extends Mixins(AddressMixin, CommonMixin, E
     @Prop({ default: null })
     readonly addresses: BcorpAddressIf | null
 
-    // Init Store properties
+    /**
+     * Registered Office address object passed in from the parent
+     */
     @Prop({ default: null })
     private registeredAddress: BaseAddressObjIF
 
+    /**
+     * Records Office address object passed in from the parent
+     */
     @Prop({ default: null })
     private recordsAddress: BaseAddressObjIF
 

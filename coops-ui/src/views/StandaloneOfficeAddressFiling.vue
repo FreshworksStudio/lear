@@ -313,7 +313,6 @@ export default {
     },
 
     fetchChangeOfAddressFiling () {
-      console.log('Change of address filing Called')
       const url = this.entityIncNo + '/filings/' + this.filingId
       axios.get(url).then(response => {
         if (response && response.data) {
@@ -334,7 +333,6 @@ export default {
             if (!filing.changeOfAddress) throw new Error('Missing change of address')
 
             const changeOfAddress = filing.changeOfAddress.offices
-            console.log(changeOfAddress)
             if (changeOfAddress) {
               if (changeOfAddress.recordsOffice) {
                 this.addresses = {
@@ -388,10 +386,9 @@ export default {
     async onClickSave () {
       // prevent double saving
       if (this.busySaving) return
-      console.log('ClickSave Called')
       this.saving = true
       const filing = await this.saveFiling(true)
-      console.log(filing)
+
       if (filing) {
         this.filingId = +filing.header.filingId
       }
@@ -478,8 +475,6 @@ export default {
         }
 
         if (this.isDataChanged('OTADD') && this.addresses) {
-          console.log(this.addresses)
-
           if (this.addresses.recordsOffice) {
             changeOfAddress = {
               changeOfAddress: {
@@ -497,6 +492,7 @@ export default {
               }
             }
           } else {
+            console.log('Inside Change of address assignments')
             changeOfAddress = {
               changeOfAddress: {
                 legalType: this.entityType,
@@ -509,75 +505,75 @@ export default {
               }
             }
           }
+        }
 
-          const filingData = {
-            filing: Object.assign(
-              {},
-              header,
-              business,
-              changeOfAddress
-            )
-          }
+        const filingData = {
+          filing: Object.assign(
+            {},
+            header,
+            business,
+            changeOfAddress
+          )
+        }
 
-          if (this.filingId > 0) {
-            // we have a filing id, so we are updating an existing filing
-            let url = this.entityIncNo + '/filings/' + this.filingId
-            if (isDraft) {
-              url += '?draft=true'
-            }
-            let filing = null
-            await axios.put(url, filingData).then(res => {
-              if (!res || !res.data || !res.data.filing) {
-                throw new Error('invalid API response')
-              }
-              filing = res.data.filing
-              this.haveChanges = false
-            }).catch(error => {
-              if (error && error.response && error.response.status === PAYMENT_REQUIRED) {
-                this.paymentErrorDialog = true
-              } else if (error && error.response && error.response.status === BAD_REQUEST) {
-                if (error.response.data.errors) {
-                  this.saveErrors = error.response.data.errors
-                }
-                if (error.response.data.warnings) {
-                  this.saveWarnings = error.response.data.warnings
-                }
-                this.saveErrorDialog = true
-              } else {
-                this.saveErrorDialog = true
-              }
-            })
-            return filing
-          } else {
-            // filing id is 0, so we are saving a new filing
-            let url = this.entityIncNo + '/filings'
-            if (isDraft) {
-              url += '?draft=true'
-            }
-            let filing = null
-            await axios.post(url, filingData).then(res => {
-              if (!res || !res.data || !res.data.filing) {
-                throw new Error('invalid API response')
-              }
-              filing = res.data.filing
-              this.haveChanges = false
-            }).catch(error => {
-              if (error && error.response && error.response.status === PAYMENT_REQUIRED) {
-                this.paymentErrorDialog = true
-              } else if (error && error.response && error.response.status === BAD_REQUEST) {
-                if (error.response.data.errors) {
-                  this.saveErrors = error.response.data.errors
-                }
-                if (error.response.data.warnings) {
-                  this.saveWarnings = error.response.data.warnings
-                }
-                this.saveErrorDialog = true
-              } else {
-                this.saveErrorDialog = true
-              }
-            })
-            return filing
+        if (this.filingId > 0) {
+          // we have a filing id, so we are updating an existing filing
+          let url = this.entityIncNo + '/filings/' + this.filingId
+          if (isDraft) {
+            url += '?draft=true'
           }
+          let filing = null
+          await axios.put(url, filingData).then(res => {
+            if (!res || !res.data || !res.data.filing) {
+              throw new Error('invalid API response')
+            }
+            filing = res.data.filing
+            this.haveChanges = false
+          }).catch(error => {
+            if (error && error.response && error.response.status === PAYMENT_REQUIRED) {
+              this.paymentErrorDialog = true
+            } else if (error && error.response && error.response.status === BAD_REQUEST) {
+              if (error.response.data.errors) {
+                this.saveErrors = error.response.data.errors
+              }
+              if (error.response.data.warnings) {
+                this.saveWarnings = error.response.data.warnings
+              }
+              this.saveErrorDialog = true
+            } else {
+              this.saveErrorDialog = true
+            }
+          })
+          return filing
+        } else {
+          // filing id is 0, so we are saving a new filing
+          let url = this.entityIncNo + '/filings'
+          if (isDraft) {
+            url += '?draft=true'
+          }
+          let filing = null
+          await axios.post(url, filingData).then(res => {
+            if (!res || !res.data || !res.data.filing) {
+              throw new Error('invalid API response')
+            }
+            filing = res.data.filing
+            this.haveChanges = false
+          }).catch(error => {
+            if (error && error.response && error.response.status === PAYMENT_REQUIRED) {
+              this.paymentErrorDialog = true
+            } else if (error && error.response && error.response.status === BAD_REQUEST) {
+              if (error.response.data.errors) {
+                this.saveErrors = error.response.data.errors
+              }
+              if (error.response.data.warnings) {
+                this.saveWarnings = error.response.data.warnings
+              }
+              this.saveErrorDialog = true
+            } else {
+              this.saveErrorDialog = true
+            }
+          })
+          return filing
         }
       }
     },
@@ -648,10 +644,6 @@ export default {
     },
     routingSlipNumber (val) {
       this.haveChanges = true
-    },
-    addresses (val) {
-      console.log('Address watcher')
-      console.log(this.addresses)
     }
   }
 }

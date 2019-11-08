@@ -340,7 +340,9 @@ CREATE TABLE public.filings (
     colin_event_id integer,
     status character varying(10),
     payment_completion_date timestamp with time zone,
-    paper_only boolean
+    paper_only boolean,
+    completion_date timestamp with time zone,
+    effective_date timestamp with time zone
 );
 
 
@@ -4688,6 +4690,7 @@ ALTER TABLE ONLY public.offices
 --
 -- PostgreSQL database dump complete
 --
+
 
 
 

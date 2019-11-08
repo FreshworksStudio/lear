@@ -137,7 +137,7 @@
                   <strong>Mailing Address</strong>
                 </label>
                 <div class="form__row">
-                  <v-input
+                  <v-checkbox
                     class="inherit-checkbox"
                     label="Same as Delivery Address"
                     v-if="showAddressForm"

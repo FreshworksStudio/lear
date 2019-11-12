@@ -2,7 +2,7 @@
   <v-card flat>
     <ul class="list address-list" v-bind:class="{ 'show-address-form' : showAddressForm }">
 
-      <!---- Registered Office Section ---->
+      <!-- Registered Office Section -->
       <div class="address-edit-header"
         v-if="showAddressForm">
         <label class="address-edit-title">Registered Office</label>

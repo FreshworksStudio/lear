@@ -92,30 +92,36 @@ import axios from '@/axios-auth'
 import isEmpty from 'lodash.isempty'
 import { required, maxLength } from 'vuelidate/lib/validators'
 import BaseAddress from 'sbc-common-components/src/components/BaseAddress.vue'
+
 // Mixins
 import { AddressMixin, CommonMixin } from '@/mixins'
+
 // action constants
 const ADDRESSCHANGED = 'addressChanged'
-    interface AddressObject {
-        actions?: string[]
-    }
-    @Component({
-      components: {
-        'delivery-address': BaseAddress,
-        'mailing-address': BaseAddress
-      }
-    })
+
+interface AddressObject {
+    actions?: string[]
+}
+
+@Component({
+  components: {
+    'delivery-address': BaseAddress,
+    'mailing-address': BaseAddress
+  }
+})
 export default class RegisteredOfficeAddress extends Mixins(AddressMixin, CommonMixin) {
   /**
    * The identifier for the legal entity that is to have its addresses retrieved from the API.
    */
   @Prop({ default: '' })
   readonly legalEntityNumber: string
+
   /**
    * Indicates whether the change button should be disabled or not
    */
   @Prop({ default: false })
   readonly changeButtonDisabled: boolean
+
   /**
    * Addresses object from the parent page.
    * If this is null then this is a new filing; otherwise these are the addresses from a draft filing.
@@ -123,23 +129,30 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
    */
   @Prop({ default: null })
   readonly addresses: object
+
   // The two addresses that come from the API. These are used to reset the address.
   private deliveryAddressOriginal: object = {}
   private mailingAddressOriginal: object = {}
+
   // The two addresses that are the current state of the BaseAddress components.
   private deliveryAddress: object = {}
   private mailingAddress: object = {}
+
   // The two addresses where the above are stored prior to an edit. These allow a cancel to the address prior to
   // edit, which if there was a prior edit will not be the data that originally came from the API.
   private deliveryAddressTemp: object = {}
   private mailingAddressTemp: object = {}
+
   // Validation events from BaseAddress.
   private deliveryAddressValid: boolean = true
   private mailingAddressValid: boolean = true
+
   // Whether to show the editable forms for the addresses (true) or just the static display addresses (false).
   private showAddressForm: boolean = false
+
   // State of the form checkbox for determining whether or not the mailing address is the same as the delivery address.
   private inheritDeliveryAddress: boolean = true
+
   // The Address schema containing Vuelidate rules.
   // NB: This should match the subject JSON schema.
   private addressSchema = {
@@ -172,6 +185,7 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
       maxLength: maxLength(80)
     }
   }
+
   /**
    * Lifecycle callback to set up the component when it is mounted.
    */
@@ -180,6 +194,7 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
     // this.setupCanadaPost()
     this.emitValid()
   }
+
   /**
    * Emits the modified state of the addresses.
    *
@@ -189,6 +204,7 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
   private emitModified (): boolean {
     return this.modified
   }
+
   /**
    * Emits the valid state of the addresses.
    *
@@ -198,6 +214,7 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
   private emitValid (): boolean {
     return this.formValid
   }
+
   /**
    * Emits updated addresses object to the parent page.
    */
@@ -205,14 +222,18 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
   private emitAddresses (): object {
     let deliveryAddressFinal = Object.assign({}, this.deliveryAddress)
     let mailingAddressFinal = Object.assign({}, this.mailingAddress)
+
     // if the address has changed from the original, set action flag
     if (this.deliveryModified) this.addAction(deliveryAddressFinal, ADDRESSCHANGED)
     else this.removeAction(deliveryAddressFinal, ADDRESSCHANGED)
+
     // if the mailing address has changed from the original, set action flag
     if (this.mailingModified) this.addAction(mailingAddressFinal, ADDRESSCHANGED)
     else this.removeAction(mailingAddressFinal, ADDRESSCHANGED)
+
     return { deliveryAddress: deliveryAddressFinal, mailingAddress: mailingAddressFinal }
   }
+
   /**
    * Called when addresses property changes (ie, when parent page has loaded a draft filing).
    */
@@ -221,6 +242,7 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
     this.deliveryAddress = isEmpty(this.addresses) ? {} : this.addresses['deliveryAddress']
     this.mailingAddress = isEmpty(this.addresses) ? {} : this.addresses['mailingAddress']
   }
+
   /**
    * Computed value of whether or not the address form is valid.
    *
@@ -229,6 +251,7 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
   private get formValid (): boolean {
     return this.deliveryAddressValid && (this.inheritDeliveryAddress || this.mailingAddressValid)
   }
+
   /**
    * Computed value of whether or not an address has been modified from the original.
    *
@@ -241,6 +264,7 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
       this.isSameAddress(this.deliveryAddress, this.deliveryAddressOriginal) &&
         this.isSameAddress(this.mailingAddress, this.mailingAddressOriginal))
   }
+
   /**
    * Computed value of whether or not the mailing address has been modified from the original.
    *
@@ -249,6 +273,7 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
   private get mailingModified (): boolean {
     return !this.isSameAddress(this.mailingAddress, this.mailingAddressOriginal)
   }
+
   /**
    * Computed value of whether or not the delivery address has been modified from the original.
    *
@@ -257,6 +282,7 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
   private get deliveryModified (): boolean {
     return !this.isSameAddress(this.deliveryAddress, this.deliveryAddressOriginal)
   }
+
   /**
    * Event callback to update the delivery address when its component changes.
    *
@@ -267,6 +293,7 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
     // to prevent an infinite loop with the property.
     Object.assign(this.deliveryAddress, address)
   }
+
   /**
    * Event callback to keep track of the validity of the delivery address.
    *
@@ -276,6 +303,7 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
     this.deliveryAddressValid = valid
     this.emitValid()
   }
+
   /**
    * Event callback to update the mailing address when its component changes.
    *
@@ -286,6 +314,7 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
     // to prevent an infinite loop with the property.
     Object.assign(this.mailingAddress, address)
   }
+
   /**
    * Event callback to keep track of the validity of the mailing address.
    *
@@ -295,6 +324,7 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
     this.mailingAddressValid = valid
     this.emitValid()
   }
+
   /**
    * Sets up the component for editing, retaining a copy of current state so that the user can cancel.
    */
@@ -302,16 +332,20 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
     this.inheritDeliveryAddress = this.isSameAddress(this.mailingAddress, this.deliveryAddress)
     this.deliveryAddressTemp = { ...this.deliveryAddress }
     this.mailingAddressTemp = { ...this.mailingAddress }
+
     this.showAddressForm = true
   }
+
   /**
    * Cancels the editing of addresses, setting the addresses to the value they had before editing began.
    */
   private cancelEditAddress (): void {
     this.deliveryAddress = { ...this.deliveryAddressTemp }
     this.mailingAddress = { ...this.mailingAddressTemp }
+
     this.showAddressForm = false
   }
+
   /**
    * Updates the address data using what was entered on the forms.
    */
@@ -323,6 +357,7 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
     this.emitAddresses()
     this.emitModified()
   }
+
   /**
    * Resets the address data to what it was before any edits were done.
    */
@@ -332,6 +367,7 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
     this.emitAddresses()
     this.emitModified()
   }
+
   /**
    * Loads the office addresses from an API call.
    *
@@ -346,6 +382,7 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
             const deliveryAddress = response.data.deliveryAddress
             if (deliveryAddress) {
               deliveryAddress.actions = []
+
               this.deliveryAddressOriginal = { ...this.omitProp(deliveryAddress, ['addressType']) }
               // If parent page loaded draft before this API call, don't overwrite draft delivery address.
               // Otherwise this API call finished before parent page loaded draft, or parent page won't
@@ -356,9 +393,11 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
             } else {
               console.log('loadAddressesFromApi() error - invalid Delivery Address =', deliveryAddress)
             }
+
             const mailingAddress = response.data.mailingAddress
             if (mailingAddress) {
               mailingAddress.actions = []
+
               this.mailingAddressOriginal = { ...this.omitProp(mailingAddress, ['addressType']) }
               // If parent page loaded draft before this API call, don't overwrite draft mailng address
               // Otherwise this API call finished before parent page loaded draft, or parent page won't
@@ -369,6 +408,7 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
             } else {
               console.log('loadAddressesFromApi() error - invalid Mailing Address =', mailingAddress)
             }
+
             // emit address data back up so that parent data has data (needed for AR filing specifically)
             this.emitAddresses()
           } else {
@@ -378,6 +418,7 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
         .catch(error => console.error('loadAddressesFromApi() error =', error))
     }
   }
+
   /**
    * Sets up the Canada Post address completion fields.
    */
@@ -396,6 +437,7 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
         this.deliveryAddress['addressCountry'] = autoCompleteResponse.name
       })
     }
+
     if (mailingCanadaPostObject) {
       mailingCanadaPostObject.listen('populate', autoCompleteResponse => {
         this.mailingAddress['streetAddress'] = autoCompleteResponse.Line1
@@ -411,12 +453,14 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
     }
   }
   */
+
   /**
    * Add an action, if it doesn't already exist; ensures no multiples.
    */
   private addAction (address: AddressObject, val: string): void {
     if (address.actions.indexOf(val) < 0) address.actions.push(val)
   }
+
   /**
    * Remove an action, if it already exists.
    */
@@ -428,31 +472,39 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
 
 <style lang="scss" scoped>
   @import '@/assets/styles/theme.scss';
+
   .v-btn {
     margin: 0;
     min-width: 6rem;
     text-transform: none;
   }
+
   .reset-btn {
     margin-top: 0.5rem;
   }
+
   .meta-container {
     display: flex;
     flex-flow: column nowrap;
     position: relative;
   }
+
   .meta-container__inner {
     margin-top: 1rem;
   }
+
   label:first-child {
     font-weight: 700;
+
     &__inner {
       flex: 1 1 auto;
     }
   }
+
   @media (min-width: 768px) {
     .meta-container {
       flex-flow: row nowrap;
+
       label:first-child {
         flex: 0 0 auto;
         padding-right: 4rem;
@@ -463,45 +515,56 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
       margin-top: 0;
     }
   }
+
   // List Layout
   .list {
     li {
       border-bottom: 1px solid $gray3;
     }
   }
+
   .address-list .form {
     margin-top: 1rem;
   }
+
   @media (min-width: 768px) {
     .address-list .form {
       margin-top: 0;
     }
   }
+
   // Address Block Layout
   .address-block__actions {
     position: absolute;
     top: 0;
     right: 0;
+
     .v-btn {
       min-width: 4rem;
     }
+
     .v-btn + .v-btn {
       margin-left: 0.5rem;
     }
   }
+
   // Form Row Elements
   .form__row + .form__row {
     margin-top: 0.25rem;
   }
+
   .form__btns {
     text-align: right;
+
     .v-btn {
       margin: 0;
+
       + .v-btn {
         margin-left: 0.5rem;
       }
     }
   }
+
   .form__row.three-column {
     display: flex;
     flex-flow: row nowrap;
@@ -509,17 +572,20 @@ export default class RegisteredOfficeAddress extends Mixins(AddressMixin, Common
     margin-right: -0.5rem;
     margin-left: -0.5rem;
   }
+
   .inherit-checkbox {
     margin-top: -3px;
     margin-left: -3px;
     padding: 0;
   }
+
   // Registered Office Address Form Behavior
   .show-address-form {
     li:first-child {
       padding-bottom: 0;
     }
   }
+
   ul {
     margin: 0;
     padding: 0;

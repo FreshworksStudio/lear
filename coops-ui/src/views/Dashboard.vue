@@ -12,14 +12,19 @@
               <header>
                 <h2 class="mb-3">To Do <span class="text-muted">({{todoCount}})</span></h2>
               </header>
-              <todo-list @todo-count="todoCount = $event" @has-blocker-filing="hasBlockerFiling = $event"
-                         @todo-filings="todoListFilings = $event" :inProcessFiling="inProcessFiling" />
+              <todo-list
+                @todo-count="todoCount = $event"
+                @has-blocker-filing="hasBlockerFiling = $event"
+                @todo-filings="todoListFilings = $event"
+                :inProcessFiling="inProcessFiling" />
             </section>
             <section>
               <header>
                 <h2 class="mb-3">Recent Filing History <span class="text-muted">({{filedCount}})</span></h2>
               </header>
-              <filing-history-list @filed-count="filedCount = $event" @filings-list="historyFilings = $event" />
+              <filing-history-list
+                @filed-count="filedCount = $event"
+                @filings-list="historyFilings = $event" />
             </section>
           </div>
 
@@ -27,14 +32,27 @@
             <section>
               <header class="aside-header mb-3">
                 <h2>Office Addresses</h2>
-                <v-btn text small color="primary" id="btn-standalone-addresses" :disabled="hasBlockerFiling"
+                <v-scale-transition>
+                  <v-chip
+                    x-small
+                    label
+                    color="yellow"
+                    text-color="black"
+                    v-show="coaPending"
+                  >
+                    Pending
+                  </v-chip>
+                </v-scale-transition>
+                <v-btn text small color="primary" id="btn-standalone-addresses" :disabled="hasBlockerFiling || coaPending"
                       @click.native.stop="goToStandaloneAddresses()">
                   <v-icon small>mdi-pencil</v-icon>
                   <span>Change</span>
                 </v-btn>
               </header>
               <v-card flat>
-                <address-list-sm></address-list-sm>
+                <address-list-sm
+                :coaPending="coaPending"
+                />
               </v-card>
             </section>
 
@@ -88,7 +106,8 @@ export default {
       todoListFilings: [],
       refreshTimer: null,
       checkFilingStatusCount: 0,
-      inProcessFiling: null
+      inProcessFiling: null,
+      coaPending: false
     }
   },
 
@@ -167,6 +186,9 @@ export default {
           vue.checkFilingStatus(filingId)
         }, 1000)
       })
+    },
+    checkPendingFilings (filing) {
+      if (filing.status === 'pending') this.coaPending = true
     }
   },
   mounted () {
@@ -176,6 +198,11 @@ export default {
   },
   watch: {
     historyFilings () {
+      const filing = {
+        'status': 'paid'
+      }
+      console.log(filing)
+      this.checkPendingFilings(filing)
       this.checkToReloadDashboard()
     },
     todoListFilings () {

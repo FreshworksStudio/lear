@@ -43,7 +43,7 @@
               v-if="entityFilter(EntityTypes.BCorp)"
               type="info"
               :value="true"
-              icon="mdi-information"
+              dismissible
               outlined
               class="white-background">
               Any address update will be effective tomorrow.
@@ -707,9 +707,10 @@ h2 {
 
 // Bcorp Alert
 .v-application .info--text {
-  padding: 0.5rem!important;
+  padding: .75rem!important;
   color: #000014 !important;
   border-color: #2196f3 !important;
   caret-color: #2196f3 !important;
+  background: rgba(33, 150, 243, .1) !important;
 }
 </style>
